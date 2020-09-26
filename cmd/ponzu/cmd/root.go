@@ -37,6 +37,9 @@ the BSD-3-Clause license.
 // Execute adds all child commands.
 func Execute() {
 
+	pflags := RootCmd.PersistentFlags()
+	pflags.StringVar(&gocmd, "gocmd", "go", "custom go command if using beta or new release of Go")
+
 	if err := RootCmd.Execute(); err != nil {
 		os.Exit(-1)
 	}
