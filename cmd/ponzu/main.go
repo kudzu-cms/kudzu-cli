@@ -17,6 +17,7 @@ import (
 
 	_ "content"
 
+	"github.com/bobbygryzynger/ponzu/cmd/ponzu/cmd"
 	"github.com/bobbygryzynger/ponzu/system/admin"
 	"github.com/bobbygryzynger/ponzu/system/api"
 	"github.com/bobbygryzynger/ponzu/system/api/analytics"
@@ -218,8 +219,8 @@ func init() {
 		cmd.Flags().BoolVar(&devhttps, "dev-https", false, "[dev environment] enable automatic TLS/SSL certificate management")
 	}
 
-	RegisterCmdlineCommand(serveCmd)
-	RegisterCmdlineCommand(runCmd)
+	cmd.RegisterCmdlineCommand(serveCmd)
+	cmd.RegisterCmdlineCommand(runCmd)
 
 	pflags := rootCmd.PersistentFlags()
 	pflags.StringVar(&gocmd, "gocmd", "go", "custom go command if using beta or new release of Go")
