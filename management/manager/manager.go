@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/ponzu-cms/ponzu/management/editor"
-	"github.com/ponzu-cms/ponzu/system/item"
+	"github.com/bobbygryzynger/ponzu/management/editor"
+	"github.com/bobbygryzynger/ponzu/system/item"
 
 	"github.com/gofrs/uuid"
 )
@@ -45,7 +45,7 @@ const managerHTML = `
 				// although not 100% accurately
 				var sec = (new Date()).getSeconds();
 				var date = new Date(year, month, day, hour, minute, sec);
-				
+
 				$ts.val(date.getTime());
 			}
 
@@ -58,14 +58,14 @@ const managerHTML = `
 				dt.period.val(time.pd);
 				dt.year.val(date.yyyy);
 				dt.month.val(date.mm);
-				dt.day.val(date.dd);				
+				dt.day.val(date.dd);
 			}
 
 			// set time time and date inputs using the hidden timestamp input.
 			// if it is empty, set it to now and use that value for time and date
 			var publish_time_hh = $('input.__ponzu.hour'),
 				publish_time_mm = $('input.__ponzu.minute'),
-				publish_time_pd = $('select.__ponzu.period'),				
+				publish_time_pd = $('select.__ponzu.period'),
 				publish_date_yyyy = $('input.__ponzu.year'),
 				publish_date_mm = $('select.__ponzu.month'),
 				publish_date_dd = $('input.__ponzu.day'),
@@ -90,7 +90,7 @@ const managerHTML = `
 			}
 
 			setDefaultTimeAndDate(getFields(), time);
-			
+
 			var timeUpdated = false;
 			$('form').on('submit', function(e) {
 				if (timeUpdated === true) {

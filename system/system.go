@@ -6,7 +6,7 @@ package system
 import (
 	"net/http"
 
-	"github.com/ponzu-cms/ponzu/system/db"
+	"github.com/bobbygryzynger/ponzu/system/db"
 )
 
 // BasicAuth adds HTTP Basic Auth check for requests that should implement it

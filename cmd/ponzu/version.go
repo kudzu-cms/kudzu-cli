@@ -41,7 +41,7 @@ func version(isCLI bool) (map[string]interface{}, error) {
 		if err != nil {
 			return nil, err
 		}
-		repo := filepath.Join(gopath, "src", "github.com", "ponzu-cms", "ponzu")
+		repo := filepath.Join(gopath, "src", "github.com", "bobbygryzynger", "ponzu")
 		info = filepath.Join(repo, "cmd", "ponzu", "ponzu.json")
 	}
 

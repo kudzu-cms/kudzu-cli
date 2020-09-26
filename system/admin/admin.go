@@ -9,10 +9,10 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/ponzu-cms/ponzu/system/admin/user"
-	"github.com/ponzu-cms/ponzu/system/api/analytics"
-	"github.com/ponzu-cms/ponzu/system/db"
-	"github.com/ponzu-cms/ponzu/system/item"
+	"github.com/bobbygryzynger/ponzu/system/admin/user"
+	"github.com/bobbygryzynger/ponzu/system/api/analytics"
+	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/bobbygryzynger/ponzu/system/item"
 )
 
 var startAdminHTML = `<!doctype html>
@@ -23,13 +23,13 @@ var startAdminHTML = `<!doctype html>
         <script type="text/javascript" src="/admin/static/common/js/util.js"></script>
         <script type="text/javascript" src="/admin/static/dashboard/js/materialize.min.js"></script>
         <script type="text/javascript" src="/admin/static/dashboard/js/chart.bundle.min.js"></script>
-        <script type="text/javascript" src="/admin/static/editor/js/materialNote.js"></script> 
+        <script type="text/javascript" src="/admin/static/editor/js/materialNote.js"></script>
         <script type="text/javascript" src="/admin/static/editor/js/ckMaterializeOverrides.js"></script>
-                  
-        <link rel="stylesheet" href="/admin/static/dashboard/css/material-icons.css" />     
+
+        <link rel="stylesheet" href="/admin/static/dashboard/css/material-icons.css" />
         <link rel="stylesheet" href="/admin/static/dashboard/css/materialize.min.css" />
         <link rel="stylesheet" href="/admin/static/editor/css/materialNote.css" />
-        <link rel="stylesheet" href="/admin/static/dashboard/css/admin.css" />    
+        <link rel="stylesheet" href="/admin/static/dashboard/css/admin.css" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8">
@@ -55,14 +55,14 @@ var mainAdminHTML = `
                 <div class="card">
                 <ul class="card-content collection">
                     <div class="card-title">Content</div>
-                                    
+
                     {{ range $t, $f := .Types }}
                     <div class="row collection-item">
                         <li><a class="col s12" href="/admin/contents?type={{ $t }}"><i class="tiny left material-icons">playlist_add</i>{{ $t }}</a></li>
                     </div>
                     {{ end }}
 
-                    <div class="card-title">System</div>                                
+                    <div class="card-title">System</div>
                     <div class="row collection-item">
                         <li><a class="col s12" href="/admin/configure"><i class="tiny left material-icons">settings</i>Configuration</a></li>
                         <li><a class="col s12" href="/admin/configure/users"><i class="tiny left material-icons">supervisor_account</i>Admin Users</a></li>
@@ -82,8 +82,8 @@ var endAdminHTML = `
         </div>
         <footer class="row">
             <div class="col s12">
-                <p class="center-align">Powered by &copy; <a target="_blank" href="https://ponzu-cms.org">Ponzu</a> &nbsp;&vert;&nbsp; open-sourced by <a target="_blank" href="https://www.bosssauce.it">Boss Sauce Creative</a></p>
-            </div>     
+                <p class="center-align">Powered by &copy; <a target="_blank" href="https://bobbygryzynger.org">Ponzu</a> &nbsp;&vert;&nbsp; open-sourced by <a target="_blank" href="https://www.bosssauce.it">Boss Sauce Creative</a></p>
+            </div>
         </footer>
     </body>
 </html>`
@@ -127,16 +127,16 @@ var initAdminHTML = `
 <div class="card">
 <div class="card-content">
     <div class="card-title">Welcome!</div>
-    <blockquote>You need to initialize your system by filling out the form below. All of 
-    this information can be updated later on, but you will not be able to start 
+    <blockquote>You need to initialize your system by filling out the form below. All of
+    this information can be updated later on, but you will not be able to start
     without first completing this step.</blockquote>
     <form method="post" action="/admin/init" class="row">
         <div>Configuration</div>
-        <div class="input-field col s12">        
+        <div class="input-field col s12">
             <input placeholder="Enter the name of your site (interal use only)" class="validate required" type="text" id="name" name="name"/>
             <label for="name" class="active">Site Name</label>
         </div>
-        <div class="input-field col s12">        
+        <div class="input-field col s12">
             <input placeholder="Used for acquiring SSL certificate (e.g. www.example.com or  example.com)" class="validate" type="text" id="domain" name="domain"/>
             <label for="domain" class="active">Domain</label>
         </div>
@@ -147,7 +147,7 @@ var initAdminHTML = `
         </div>
         <div class="input-field col s12">
             <input placeholder="Enter a strong password" class="validate required" type="password" id="password" name="password"/>
-            <label for="password" class="active">Password</label>        
+            <label for="password" class="active">Password</label>
         </div>
         <button class="btn waves-effect waves-light right">Start</button>
     </form>
@@ -157,22 +157,22 @@ var initAdminHTML = `
 <script>
     $(function() {
         $('.nav-wrapper ul.right').hide();
-        
+
         var logo = $('a.brand-logo');
         var name = $('input#name');
         var domain = $('input#domain');
         var hostname = domain.val();
 
-        if (hostname === '') {    
+        if (hostname === '') {
             hostname = window.location.host || window.location.hostname;
         }
-        
+
         if (hostname.indexOf(':') !== -1) {
             hostname = hostname.split(':')[0];
         }
-        
+
         domain.val(hostname);
-        
+
         name.on('change', function(e) {
             logo.text(e.target.value);
         });
@@ -221,8 +221,8 @@ var loginAdminHTML = `
         </div>
         <div class="input-field col s12">
             <input placeholder="Enter your password" class="validate required" type="password" id="password" name="password"/>
-            <a href="/admin/recover">Forgot password?</a>            
-            <label for="password" class="active">Password</label>  
+            <a href="/admin/recover">Forgot password?</a>
+            <label for="password" class="active">Password</label>
         </div>
         <button class="btn waves-effect waves-light right">Log in</button>
     </form>
@@ -274,7 +274,7 @@ var forgotPasswordHTML = `
             <input placeholder="Enter your email address e.g. you@example.com" class="validate required" type="email" id="email" name="email"/>
             <label for="email" class="active">Email</label>
         </div>
-        
+
         <a href="/admin/recover/key">Already have a recovery key?</a>
         <button class="btn waves-effect waves-light right">Send Recovery Email</button>
     </form>
@@ -336,7 +336,7 @@ var recoveryKeyHTML = `
             <input placeholder="Enter your password" class="validate required" type="password" id="password" name="password"/>
             <label for="password" class="active">New Password</label>
         </div>
-        
+
         <button class="btn waves-effect waves-light right">Update Account</button>
     </form>
 </div>
@@ -380,7 +380,7 @@ func RecoveryKey() ([]byte, error) {
 func UsersList(req *http.Request) ([]byte, error) {
 	html := `
     <div class="card user-management">
-        <div class="card-title">Edit your account:</div>    
+        <div class="card-title">Edit your account:</div>
         <form class="row" enctype="multipart/form-data" action="/admin/configure/users/edit" method="post">
             <div class="col s9">
                 <label class="active">Email Address</label>
@@ -389,7 +389,7 @@ func UsersList(req *http.Request) ([]byte, error) {
 
             <div class="col s9">
                 <div>To approve changes, enter your password:</div>
-                
+
                 <label class="active">Current Password</label>
                 <input type="password" name="password"/>
             </div>
@@ -399,12 +399,12 @@ func UsersList(req *http.Request) ([]byte, error) {
                 <input name="new_password" type="password"/>
             </div>
 
-            <div class="col s9">                        
+            <div class="col s9">
                 <button class="btn waves-effect waves-light green right" type="submit">Save</button>
             </div>
         </form>
 
-        <div class="card-title">Add a new user:</div>        
+        <div class="card-title">Add a new user:</div>
         <form class="row" enctype="multipart/form-data" action="/admin/configure/users" method="post">
             <div class="col s9">
                 <label class="active">Email Address</label>
@@ -416,12 +416,12 @@ func UsersList(req *http.Request) ([]byte, error) {
                 <input type="password" name="password"/>
             </div>
 
-            <div class="col s9">            
+            <div class="col s9">
                 <button class="btn waves-effect waves-light green right" type="submit">Add User</button>
-            </div>   
-        </form>        
+            </div>
+        </form>
 
-        <div class="card-title">Remove Admin Users</div>        
+        <div class="card-title">Remove Admin Users</div>
         <ul class="users row">
             {{ range .Users }}
             <li class="col s9">

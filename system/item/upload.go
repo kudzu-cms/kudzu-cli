@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ponzu-cms/ponzu/management/editor"
+	"github.com/bobbygryzynger/ponzu/management/editor"
 )
 
 // FileUpload represents the file uploaded to the system
@@ -59,7 +59,7 @@ func (f *FileUpload) MarshalEditor() ([]byte, error) {
 			// change form action to upload-specific endpoint
 			var form = $('form');
 			form.attr('action', '/admin/edit/upload');
-			
+
 			// hide default fields & labels unnecessary for the config
 			var fields = $('.default-fields');
 			fields.css('position', 'relative');

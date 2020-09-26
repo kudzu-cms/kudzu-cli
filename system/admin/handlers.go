@@ -12,18 +12,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ponzu-cms/ponzu/management/editor"
-	"github.com/ponzu-cms/ponzu/management/format"
-	"github.com/ponzu-cms/ponzu/management/manager"
-	"github.com/ponzu-cms/ponzu/system/addon"
-	"github.com/ponzu-cms/ponzu/system/admin/config"
-	"github.com/ponzu-cms/ponzu/system/admin/upload"
-	"github.com/ponzu-cms/ponzu/system/admin/user"
-	"github.com/ponzu-cms/ponzu/system/api"
-	"github.com/ponzu-cms/ponzu/system/api/analytics"
-	"github.com/ponzu-cms/ponzu/system/db"
-	"github.com/ponzu-cms/ponzu/system/item"
-	"github.com/ponzu-cms/ponzu/system/search"
+	"github.com/bobbygryzynger/ponzu/management/editor"
+	"github.com/bobbygryzynger/ponzu/management/format"
+	"github.com/bobbygryzynger/ponzu/management/manager"
+	"github.com/bobbygryzynger/ponzu/system/addon"
+	"github.com/bobbygryzynger/ponzu/system/admin/config"
+	"github.com/bobbygryzynger/ponzu/system/admin/upload"
+	"github.com/bobbygryzynger/ponzu/system/admin/user"
+	"github.com/bobbygryzynger/ponzu/system/api"
+	"github.com/bobbygryzynger/ponzu/system/api/analytics"
+	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/bobbygryzynger/ponzu/system/search"
 
 	"github.com/gorilla/schema"
 	emailer "github.com/nilslice/email"
@@ -693,12 +693,12 @@ func forgotPasswordHandler(res http.ResponseWriter, req *http.Request) {
 There has been an account recovery request made for the user with email:
 %s
 
-To recover your account, please go to http://%s/admin/recover/key and enter 
+To recover your account, please go to http://%s/admin/recover/key and enter
 this email address along with the following secret key:
 
 %s
 
-If you did not make the request, ignore this message and your password 
+If you did not make the request, ignore this message and your password
 will remain as-is.
 
 
@@ -901,7 +901,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 	var total int
 	var posts [][]byte
 
-	html := `<div class="col s9 card">		
+	html := `<div class="col s9 card">
 					<div class="card-content">
 					<div class="row">
 					<div class="col s8">
@@ -913,7 +913,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 									<option value="ASC">Old to New</option>
 								</select>
 								<label class="active">Sort:</label>
-							</div>	
+							</div>
 							<script>
 								$(function() {
 									var sort = $('select.__ponzu.sort-order');
@@ -929,7 +929,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 									if (order !== '') {
 										sort.val(order);
 									}
-									
+
 								});
 							</script>
 						</div>
@@ -941,7 +941,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 							<input class="search" name="q" type="text" placeholder="Within all Upload fields" class="search"/>
 							<input type="hidden" name="type" value="__uploads" />
 						</div>
-                    </form>	
+                    </form>
 					</div>`
 
 	t := "__uploads"
@@ -1198,7 +1198,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 	var total int
 	var posts [][]byte
 
-	html := `<div class="col s9 card">		
+	html := `<div class="col s9 card">
 					<div class="card-content">
 					<div class="row">
 					<div class="col s8">
@@ -1210,7 +1210,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 									<option value="ASC">Old to New</option>
 								</select>
 								<label class="active">Sort:</label>
-							</div>	
+							</div>
 							<script>
 								$(function() {
 									var sort = $('select.__ponzu.sort-order');
@@ -1232,7 +1232,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 									if (order !== '') {
 										sort.val(order);
 									}
-									
+
 								});
 							</script>
 						</div>
@@ -1245,7 +1245,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 							<input type="hidden" name="type" value="` + t + `" />
 							<input type="hidden" name="status" value="` + status + `" />
 						</div>
-                    </form>	
+                    </form>
 					</div>`
 	if hasExt {
 		if status == "" {
@@ -1268,7 +1268,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 			total, posts = db.Query(t+specifier, opts)
 
 			html += `<div class="row externalable">
-					<span class="description">Status:</span> 
+					<span class="description">Status:</span>
 					<span class="active">Public</span>
 					&nbsp;&vert;&nbsp;
 					<a href="` + pendingURL + `">Pending</a>
@@ -1318,10 +1318,10 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 			total, posts = db.Query(t+"__pending", opts)
 
 			html += `<div class="row externalable">
-					<span class="description">Status:</span> 
+					<span class="description">Status:</span>
 					<a href="` + publicURL + `">Public</a>
 					&nbsp;&vert;&nbsp;
-					<span class="active">Pending</span>					
+					<span class="active">Pending</span>
 				</div>`
 
 			for i := len(posts) - 1; i >= 0; i-- {
@@ -2495,10 +2495,10 @@ func searchHandler(res http.ResponseWriter, req *http.Request) {
 
 	p := post.(editor.Editable)
 
-	html := `<div class="col s9 card">		
+	html := `<div class="col s9 card">
 					<div class="card-content">
 					<div class="row">
-					<div class="card-title col s7">` + t + ` Results</div>	
+					<div class="card-title col s7">` + t + ` Results</div>
 					<form class="col s4" action="/admin/contents/search" method="get">
 						<div class="input-field post-search inline">
 							<label class="active">Search:</label>
@@ -2507,7 +2507,7 @@ func searchHandler(res http.ResponseWriter, req *http.Request) {
 							<input type="hidden" name="type" value="` + t + `" />
 							<input type="hidden" name="status" value="` + status + `" />
 						</div>
-                    </form>	
+                    </form>
 					</div>
 					<ul class="posts row">`
 
@@ -2623,10 +2623,10 @@ func uploadSearchHandler(res http.ResponseWriter, req *http.Request) {
 	b := &bytes.Buffer{}
 	p := interface{}(&item.FileUpload{}).(editor.Editable)
 
-	html := `<div class="col s9 card">		
+	html := `<div class="col s9 card">
 					<div class="card-content">
 					<div class="row">
-					<div class="card-title col s7">Uploads Results</div>	
+					<div class="card-title col s7">Uploads Results</div>
 					<form class="col s4" action="/admin/uploads/search" method="get">
 						<div class="input-field post-search inline">
 							<label class="active">Search:</label>
@@ -2634,7 +2634,7 @@ func uploadSearchHandler(res http.ResponseWriter, req *http.Request) {
 							<input class="search" name="q" type="text" placeholder="Within all Upload fields" class="search"/>
 							<input type="hidden" name="type" value="` + t + `" />
 						</div>
-                    </form>	
+                    </form>
 					</div>
 					<ul class="posts row">`
 
@@ -2735,10 +2735,10 @@ func addonsHandler(res http.ResponseWriter, req *http.Request) {
 		}
 
 		html := &bytes.Buffer{}
-		open := `<div class="col s9 card">		
+		open := `<div class="col s9 card">
 				<div class="card-content">
 				<div class="row">
-				<div class="card-title col s7">Addons</div>	
+				<div class="card-title col s7">Addons</div>
 				</div>
 				<ul class="posts row">`
 
@@ -3147,7 +3147,7 @@ func adminAddonListItem(data []byte) []byte {
 						<span class="addon-meta addon-version">version: ` + version + `</span>
 					</div>
 
-					<div class="col s3">					
+					<div class="col s3">
 						<form enctype="multipart/form-data" class="quick-` + strings.ToLower(action) + `-addon __ponzu right" action="/admin/addons" method="post">
 							<button class="btn waves-effect waves-effect-light ` + buttonClass + `">` + action + `</button>
 							<input type="hidden" name="id" value="` + id + `" />

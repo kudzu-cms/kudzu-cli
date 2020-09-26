@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var ponzuRepo = []string{"github.com", "ponzu-cms", "ponzu"}
+var ponzuRepo = []string{"github.com", "bobbygryzynger", "ponzu"}
 
 func getAnswer() (string, error) {
 	var answer string
@@ -28,7 +28,7 @@ func getAnswer() (string, error) {
 }
 
 func vendorCorePackages(path string) error {
-	vendorPath := filepath.Join(path, "cmd", "ponzu", "vendor", "github.com", "ponzu-cms", "ponzu")
+	vendorPath := filepath.Join(path, "cmd", "ponzu", "vendor", "github.com", "bobbygryzynger", "ponzu")
 	err := os.MkdirAll(vendorPath, os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err

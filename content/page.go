@@ -3,8 +3,8 @@ package content
 import (
 	"fmt"
 
-	"github.com/ponzu-cms/ponzu/management/editor"
-	"github.com/ponzu-cms/ponzu/system/item"
+	"github.com/bobbygryzynger/ponzu/management/editor"
+	"github.com/bobbygryzynger/ponzu/system/item"
 )
 
 type Page struct {

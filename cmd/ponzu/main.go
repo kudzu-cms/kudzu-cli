@@ -17,11 +17,11 @@ import (
 
 	_ "content"
 
-	"github.com/ponzu-cms/ponzu/system/admin"
-	"github.com/ponzu-cms/ponzu/system/api"
-	"github.com/ponzu-cms/ponzu/system/api/analytics"
-	"github.com/ponzu-cms/ponzu/system/db"
-	"github.com/ponzu-cms/ponzu/system/tls"
+	"github.com/bobbygryzynger/ponzu/system/admin"
+	"github.com/bobbygryzynger/ponzu/system/api"
+	"github.com/bobbygryzynger/ponzu/system/api/analytics"
+	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/bobbygryzynger/ponzu/system/tls"
 
 	"github.com/spf13/cobra"
 )
