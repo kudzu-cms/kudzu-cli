@@ -15,7 +15,8 @@ import (
 	"strings"
 	"time"
 
-	_ "github.com/ponzu-cms/ponzu/content"
+	_ "content"
+
 	"github.com/ponzu-cms/ponzu/system/admin"
 	"github.com/ponzu-cms/ponzu/system/api"
 	"github.com/ponzu-cms/ponzu/system/api/analytics"
@@ -45,7 +46,7 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use: "ponzu",
-	Long: `Ponzu is an open-source HTTP server framework and CMS, released under 
+	Long: `Ponzu is an open-source HTTP server framework and CMS, released under
 the BSD-3-Clause license.
 (c) 2016 - ` + year + ` Boss Sauce Creative, LLC`,
 }
@@ -199,8 +200,8 @@ var serveCmd = &cobra.Command{
 			log.Fatalln("System failed to save config. Please try to run again.", err)
 		}
 
-		fmt.Printf("Server listening at %s:%d for HTTP requests...\n", bind, port)
-		fmt.Println("\nVisit '/admin' to get started.")
+		fmt.Printf("Server listening at http://%s:%d for HTTP requests...\n", bind, port)
+		fmt.Printf("\nVisit http://%s:%d/admin to get started.", bind, port)
 		log.Fatalln(http.ListenAndServe(fmt.Sprintf("%s:%d", bind, port), nil))
 		return nil
 	},
