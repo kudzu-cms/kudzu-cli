@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ import (
 )
 
 var templateFuncs = template.FuncMap{
-	"rpad": rpad,
+	"rpad":                    rpad,
 	"trimTrailingWhitespaces": trimRightSpace,
 }
 
