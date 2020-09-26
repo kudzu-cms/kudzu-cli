@@ -11,7 +11,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var addCmd = &cobra.Command{
+// AddCmd adds an addon.
+var AddCmd = &cobra.Command{
 	Use:     "add <import path>",
 	Aliases: []string{"a"},
 	Short:   "Downloads addon from specified import path",
@@ -177,5 +178,5 @@ func addError(err error) error {
 }
 
 func init() {
-	RegisterCmdlineCommand(addCmd)
+	RootCmd.AddCommand(AddCmd)
 }

@@ -10,7 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var newCmd = &cobra.Command{
+// NewCmd builds a new project.
+var NewCmd = &cobra.Command{
 	Use:   "new [flags] <project name>",
 	Short: "creates a project directory of the name supplied as a parameter",
 	Long: `Creates a project directory of the name supplied as a parameter
@@ -198,8 +199,8 @@ func createProjectInDir(path string) error {
 }
 
 func init() {
-	newCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
-	newCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
+	NewCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
+	NewCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
 
-	RegisterCmdlineCommand(newCmd)
+	RootCmd.AddCommand(NewCmd)
 }

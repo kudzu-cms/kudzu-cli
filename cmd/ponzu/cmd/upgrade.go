@@ -10,7 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var upgradeCmd = &cobra.Command{
+// UpgradeCmd upgrades your project to the current ponzu version.
+var UpgradeCmd = &cobra.Command{
 	Use:   "upgrade",
 	Short: "upgrades your project to the current ponzu version",
 	Long: `Will backup your own custom project code (like content, addons, uploads, etc)
@@ -175,7 +176,8 @@ func upgradePonzuProjectDir(path string) error {
 }
 
 func init() {
-	upgradeCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
-	upgradeCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
-	RegisterCmdlineCommand(upgradeCmd)
+	UpgradeCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
+	UpgradeCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
+
+	RootCmd.AddCommand(UpgradeCmd)
 }

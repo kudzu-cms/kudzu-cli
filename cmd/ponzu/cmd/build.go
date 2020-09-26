@@ -13,7 +13,8 @@ func buildPonzuServer() error {
 	return execAndWait(gocmd, buildOptions...)
 }
 
-var buildCmd = &cobra.Command{
+// BuildCmd builds the project.
+var BuildCmd = &cobra.Command{
 	Use:   "build [flags]",
 	Short: "build will build/compile the project to then be run.",
 	Long: `From within your Ponzu project directory, running build will copy and move
@@ -33,5 +34,5 @@ $ ponzu build --gocmd=go1.8rc1`,
 }
 
 func init() {
-	RegisterCmdlineCommand(buildCmd)
+	RootCmd.AddCommand(BuildCmd)
 }
