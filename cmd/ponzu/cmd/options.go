@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -70,76 +69,6 @@ func copyFileNoRoot(src, dst string) error {
 	_, err = io.Copy(dstFile, srcFile)
 	if err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func copyFilesWarnConflicts(srcDir, dstDir string, conflicts []string) error {
-	err := filepath.Walk(srcDir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		for _, conflict := range conflicts {
-			if info.Name() == conflict {
-				fmt.Println("Ponzu couldn't fully build your project:")
-				fmt.Println("You must rename the following file, as it conflicts with Ponzu core:")
-				fmt.Println(path)
-				fmt.Println("")
-				fmt.Println("Once the files above have been renamed, run '$ ponzu build' to retry.")
-				return errors.New("Ponzu has very few internal conflicts, sorry for the inconvenience.")
-			}
-		}
-
-		if info.IsDir() {
-			// don't copy root directory
-			if path == srcDir {
-				return nil
-			}
-
-			if len(path) > len(srcDir) {
-				path = path[len(srcDir)+1:]
-			}
-			dir := filepath.Join(dstDir, path)
-			err := os.MkdirAll(dir, os.ModeDir|os.ModePerm)
-			if err != nil {
-				return err
-			}
-
-			return nil
-		}
-
-		err = copyFileNoRoot(path, dstDir)
-		if err != nil {
-			return err
-		}
-
-		return nil
-	})
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func emptyDir(path string) error {
-	d, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer d.Close()
-
-	names, err := d.Readdirnames(-1)
-	if err != nil {
-		return err
-	}
-	for _, name := range names {
-		err = os.RemoveAll(filepath.Join(path, name))
-		if err != nil {
-			return err
-		}
 	}
 
 	return nil
