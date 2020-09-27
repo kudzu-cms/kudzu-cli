@@ -1,7 +1,5 @@
 ```sh
-cd cmd/ponzu/
-go build
-cd ../../
-./cmd/ponzu build
-./cmd/ponzu run
+go build -o ponzu cmd/ponzu/main.go
+./ponzu build
+./ponzu run
 ```
