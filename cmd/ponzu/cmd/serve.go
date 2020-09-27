@@ -20,8 +20,7 @@ import (
 var ErrWrongOrMissingService = errors.New("To execute 'ponzu serve', " +
 	"you must specify which service to run.")
 
-// ServeCmd runs the ponzu server.
-var ServeCmd = &cobra.Command{
+var serveCmd = &cobra.Command{
 	Use:     "serve [flags] <service,service>",
 	Aliases: []string{"s"},
 	Short:   "run the server (serve is wrapped by the run command)",
@@ -106,14 +105,14 @@ var ServeCmd = &cobra.Command{
 
 func init() {
 
-	ServeCmd.Flags().StringVar(&bind, "bind", "localhost", "address for ponzu to bind the HTTP(S) server")
-	ServeCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for ponzu to bind its HTTPS listener")
-	ServeCmd.Flags().IntVar(&port, "port", 8080, "port for ponzu to bind its HTTP listener")
-	ServeCmd.Flags().IntVar(&docsport, "docs-port", 1234, "[dev environment] override the documentation server port")
-	ServeCmd.Flags().BoolVar(&docs, "docs", false, "[dev environment] run HTTP server to view local HTML documentation")
-	ServeCmd.Flags().BoolVar(&https, "https", false, "enable automatic TLS/SSL certificate management")
-	ServeCmd.Flags().BoolVar(&devhttps, "dev-https", false, "[dev environment] enable automatic TLS/SSL certificate management")
+	serveCmd.Flags().StringVar(&bind, "bind", "localhost", "address for ponzu to bind the HTTP(S) server")
+	serveCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for ponzu to bind its HTTPS listener")
+	serveCmd.Flags().IntVar(&port, "port", 8080, "port for ponzu to bind its HTTP listener")
+	serveCmd.Flags().IntVar(&docsport, "docs-port", 1234, "[dev environment] override the documentation server port")
+	serveCmd.Flags().BoolVar(&docs, "docs", false, "[dev environment] run HTTP server to view local HTML documentation")
+	serveCmd.Flags().BoolVar(&https, "https", false, "enable automatic TLS/SSL certificate management")
+	serveCmd.Flags().BoolVar(&devhttps, "dev-https", false, "[dev environment] enable automatic TLS/SSL certificate management")
 
-	RootCmd.AddCommand(ServeCmd)
+	rootCmd.AddCommand(serveCmd)
 
 }

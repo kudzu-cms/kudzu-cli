@@ -416,8 +416,7 @@ func generateContentType(args []string) error {
 	return nil
 }
 
-// GenerateCmd generates site boilerplate.
-var GenerateCmd = &cobra.Command{
+var generateCmd = &cobra.Command{
 	Use:     "generate <generator type (,...fields)>",
 	Aliases: []string{"gen", "g"},
 	Short:   "generate boilerplate code for various Ponzu components",
@@ -440,8 +439,7 @@ generate commands return nothing.`,
 	Example: `$ ponzu gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
 }
 
-// ContentCmd generates content.
-var ContentCmd = &cobra.Command{
+var contentCmd = &cobra.Command{
 	Use:     "content <namespace> <field> <field>...",
 	Aliases: []string{"c"},
 	Short:   "generates a new content type",
@@ -451,6 +449,6 @@ var ContentCmd = &cobra.Command{
 }
 
 func init() {
-	GenerateCmd.AddCommand(ContentCmd)
-	RootCmd.AddCommand(GenerateCmd)
+	generateCmd.AddCommand(contentCmd)
+	rootCmd.AddCommand(generateCmd)
 }

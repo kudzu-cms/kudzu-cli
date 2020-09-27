@@ -18,16 +18,13 @@ var (
 	docs      bool
 	cli       bool
 
-	// for ponzu internal / core development
-	gocmd string
-	fork  string
-	dev   bool
+	fork string
+	dev  bool
 
 	year = fmt.Sprintf("%d", time.Now().Year())
 )
 
-// RootCmd is the main CLI command.
-var RootCmd = &cobra.Command{
+var rootCmd = &cobra.Command{
 	Use: "ponzu",
 	Long: `Ponzu is an open-source HTTP server framework and CMS, released under
 the BSD-3-Clause license.
@@ -37,10 +34,7 @@ the BSD-3-Clause license.
 // Execute adds all child commands.
 func Execute() {
 
-	pflags := RootCmd.PersistentFlags()
-	pflags.StringVar(&gocmd, "gocmd", "go", "custom go command if using beta or new release of Go")
-
-	if err := RootCmd.Execute(); err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		os.Exit(-1)
 	}
 

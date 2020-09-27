@@ -10,8 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// VersionCmd displays the application version.
-var VersionCmd = &cobra.Command{
+var versionCmd = &cobra.Command{
 	Use:     "version",
 	Aliases: []string{"v"},
 	Short:   "Prints the version of Ponzu your project is using.",
@@ -60,6 +59,6 @@ func version(isCLI bool) (map[string]interface{}, error) {
 }
 
 func init() {
-	VersionCmd.Flags().BoolVar(&cli, "cli", false, "specify that information should be returned about the CLI, not project")
-	RootCmd.AddCommand(VersionCmd)
+	versionCmd.Flags().BoolVar(&cli, "cli", false, "specify that information should be returned about the CLI, not project")
+	rootCmd.AddCommand(versionCmd)
 }

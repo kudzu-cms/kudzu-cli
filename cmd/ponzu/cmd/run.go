@@ -10,8 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// RunCmd runs the ponzu server.
-var RunCmd = &cobra.Command{
+var runCmd = &cobra.Command{
 	Use:   "run [flags] <service(,service)>",
 	Short: "starts the 'ponzu' HTTP server for the JSON API and or Admin System.",
 	Long: `Starts the 'ponzu' HTTP server for the JSON API, Admin System, or both.
@@ -81,14 +80,14 @@ $ ponzu run --port=8888 api`,
 
 func init() {
 
-	RunCmd.Flags().StringVar(&bind, "bind", "localhost", "address for ponzu to bind the HTTP(S) server")
-	RunCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for ponzu to bind its HTTPS listener")
-	RunCmd.Flags().IntVar(&port, "port", 8080, "port for ponzu to bind its HTTP listener")
-	RunCmd.Flags().IntVar(&docsport, "docs-port", 1234, "[dev environment] override the documentation server port")
-	RunCmd.Flags().BoolVar(&docs, "docs", false, "[dev environment] run HTTP server to view local HTML documentation")
-	RunCmd.Flags().BoolVar(&https, "https", false, "enable automatic TLS/SSL certificate management")
-	RunCmd.Flags().BoolVar(&devhttps, "dev-https", false, "[dev environment] enable automatic TLS/SSL certificate management")
+	runCmd.Flags().StringVar(&bind, "bind", "localhost", "address for ponzu to bind the HTTP(S) server")
+	runCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for ponzu to bind its HTTPS listener")
+	runCmd.Flags().IntVar(&port, "port", 8080, "port for ponzu to bind its HTTP listener")
+	runCmd.Flags().IntVar(&docsport, "docs-port", 1234, "[dev environment] override the documentation server port")
+	runCmd.Flags().BoolVar(&docs, "docs", false, "[dev environment] run HTTP server to view local HTML documentation")
+	runCmd.Flags().BoolVar(&https, "https", false, "enable automatic TLS/SSL certificate management")
+	runCmd.Flags().BoolVar(&devhttps, "dev-https", false, "[dev environment] enable automatic TLS/SSL certificate management")
 
-	RootCmd.AddCommand(RunCmd)
+	rootCmd.AddCommand(runCmd)
 
 }
