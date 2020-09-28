@@ -25,7 +25,7 @@ func DataDir() string {
 func TlsDir() string {
 	tlsDir := os.Getenv("PONZU_TLS_DIR")
 	if tlsDir == "" {
-		tlsDir = filepath.Join(getWd(), "cmd", "ponzu", "vendor", "github.com", "bobbygryzynger", "ponzu", "system", "tls")
+		tlsDir = filepath.Join(getWd(), "system", "tls")
 	}
 	return tlsDir
 }
@@ -34,7 +34,7 @@ func AdminStaticDir() string {
 	staticDir := os.Getenv("PONZU_ADMINSTATIC_DIR")
 	if staticDir == "" {
 
-		staticDir = filepath.Join(getWd(), "cmd", "ponzu", "vendor", "github.com", "bobbygryzynger", "ponzu", "system", "admin", "static")
+		staticDir = filepath.Join(getWd(), "system", "admin", "static")
 	}
 	return staticDir
 }
@@ -42,7 +42,7 @@ func AdminStaticDir() string {
 func UploadDir() string {
 	uploadDir := os.Getenv("PONZU_UPLOAD_DIR")
 	if uploadDir == "" {
-		uploadDir = filepath.Join(DataDir(),"uploads")
+		uploadDir = filepath.Join(DataDir(), "uploads")
 	}
 	return uploadDir
 }
@@ -50,7 +50,7 @@ func UploadDir() string {
 func SearchDir() string {
 	searchDir := os.Getenv("PONZU_SEARCH_DIR")
 	if searchDir == "" {
-		searchDir = filepath.Join(DataDir(),"search")
+		searchDir = filepath.Join(DataDir(), "search")
 	}
 	return searchDir
 }
