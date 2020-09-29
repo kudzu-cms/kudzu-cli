@@ -5,8 +5,6 @@
 package main
 
 import (
-	_ "content"
-
 	"github.com/kudzu-cms/kudzu/cmd/kudzu/cmd"
 )
 
