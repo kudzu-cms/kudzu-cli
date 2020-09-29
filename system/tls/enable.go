@@ -1,4 +1,4 @@
-// Package tls provides the functionality to Ponzu systems to encrypt HTTP traffic
+// Package tls provides the functionality to kudzu systems to encrypt HTTP traffic
 // through the ability to generate self-signed certificates for local development
 // and fetch/update production certificates from Let's Encrypt.
 package tls
@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/cfg"
 	"golang.org/x/crypto/acme/autocert"
 )
 

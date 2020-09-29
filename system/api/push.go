@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/tidwall/gjson"
 )

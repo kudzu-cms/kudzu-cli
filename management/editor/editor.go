@@ -62,10 +62,10 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 	}
 
 	publishTime := `
-<div class="row content-only __ponzu">
+<div class="row content-only __kudzu">
 	<div class="input-field col s6">
 		<label class="active">MM</label>
-		<select class="month __ponzu browser-default">
+		<select class="month __kudzu browser-default">
 			<option value="1">Jan - 01</option>
 			<option value="2">Feb - 02</option>
 			<option value="3">Mar - 03</option>
@@ -82,27 +82,27 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 	</div>
 	<div class="input-field col s2">
 		<label class="active">DD</label>
-		<input value="" class="day __ponzu" maxlength="2" type="text" placeholder="DD" />
+		<input value="" class="day __kudzu" maxlength="2" type="text" placeholder="DD" />
 	</div>
 	<div class="input-field col s4">
 		<label class="active">YYYY</label>
-		<input value="" class="year __ponzu" maxlength="4" type="text" placeholder="YYYY" />
+		<input value="" class="year __kudzu" maxlength="4" type="text" placeholder="YYYY" />
 	</div>
 </div>
 
-<div class="row content-only __ponzu">
+<div class="row content-only __kudzu">
 	<div class="input-field col s3">
 		<label class="active">HH</label>
-		<input value="" class="hour __ponzu" maxlength="2" type="text" placeholder="HH" />
+		<input value="" class="hour __kudzu" maxlength="2" type="text" placeholder="HH" />
 	</div>
 	<div class="col s1">:</div>
 	<div class="input-field col s3">
 		<label class="active">MM</label>
-		<input value="" class="minute __ponzu" maxlength="2" type="text" placeholder="MM" />
+		<input value="" class="minute __kudzu" maxlength="2" type="text" placeholder="MM" />
 	</div>
 	<div class="input-field col s4">
 		<label class="active">Period</label>
-		<select class="period __ponzu browser-default">
+		<select class="period __kudzu browser-default">
 			<option value="AM">AM</option>
 			<option value="PM">PM</option>
 		</select>
@@ -135,8 +135,8 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 	<div class="col s12 input-field">
 		<button class="right waves-effect waves-light btn blue approve-post" type="submit">Approve</button>
 		<button class="right waves-effect waves-light btn grey darken-2 reject-post" type="submit">Reject</button>
-	</div>	
-	<label class="approve-details right-align col s12">This content is pending approval. By clicking 'Approve', it will be immediately published. By clicking 'Reject', it will be deleted.</label> 
+	</div>
+	<label class="approve-details right-align col s12">This content is pending approval. By clicking 'Approve', it will be immediately published. By clicking 'Reject', it will be deleted.</label>
 </div>
 `
 	}
@@ -149,9 +149,9 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 			del = form.find('button.delete-post'),
 			external = form.find('.post-controls.external'),
 			id = form.find('input[name=id]'),
-			timestamp = $('.__ponzu.content-only'),
+			timestamp = $('.__kudzu.content-only'),
 			slug = $('input[name=slug]');
-		
+
 		// hide if this is a new post, or a non-post editor page
 		if (id.val() === '-1' || form.attr('action') !== '/admin/edit') {
 			del.hide();
@@ -161,7 +161,7 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 		// hide approval if not on a pending content item
 		if (getParam('status') !== 'pending') {
 			external.hide();
-		} 
+		}
 
 		// no timestamp, slug visible on addons
 		if (form.attr('action') === '/admin/addon') {
@@ -185,8 +185,8 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 			var action = form.attr('action');
 			action = action + '/delete';
 			form.attr('action', action);
-			
-			if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
+
+			if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
 				form.submit();
 			}
 		});
@@ -206,7 +206,7 @@ func Form(post Editable, fields ...Field) ([]byte, error) {
 			action = action + '/delete?reject=true';
 			form.attr('action', action);
 
-			if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to reject this post?\nDoing so will delete it, and cannot be undone.")) {
+			if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to reject this post?\nDoing so will delete it, and cannot be undone.")) {
 				form.submit();
 			}
 		});
@@ -245,13 +245,13 @@ func addPostDefaultFieldsToEditorView(p Editable, e *Editor) error {
 		{
 			View: Timestamp("Timestamp", p, map[string]string{
 				"type":  "hidden",
-				"class": "timestamp __ponzu",
+				"class": "timestamp __kudzu",
 			}),
 		},
 		{
 			View: Timestamp("Updated", p, map[string]string{
 				"type":  "hidden",
-				"class": "updated __ponzu",
+				"class": "updated __kudzu",
 			}),
 		},
 	}

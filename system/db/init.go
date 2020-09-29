@@ -1,4 +1,4 @@
-// Package db contains all interfaces to the databases used by Ponzu, including
+// Package db contains all interfaces to the databases used by kudzu, including
 // exported functions to easily manage addons, users, indices, search, content,
 // and configuration.
 package db
@@ -7,9 +7,9 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
-	"github.com/bobbygryzynger/ponzu/system/item"
-	"github.com/bobbygryzynger/ponzu/system/search"
+	"github.com/kudzu-cms/kudzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/search"
 
 	"github.com/boltdb/bolt"
 	"github.com/nilslice/jwt"

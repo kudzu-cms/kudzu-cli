@@ -1,5 +1,5 @@
 // Package manager contains the admin UI to the CMS which wraps all content editor
-// interfaces to manage the create/edit/delete capabilities of Ponzu content.
+// interfaces to manage the create/edit/delete capabilities of kudzu content.
 package manager
 
 import (
@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/bobbygryzynger/ponzu/management/editor"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/gofrs/uuid"
 )
@@ -63,14 +63,14 @@ const managerHTML = `
 
 			// set time time and date inputs using the hidden timestamp input.
 			// if it is empty, set it to now and use that value for time and date
-			var publish_time_hh = $('input.__ponzu.hour'),
-				publish_time_mm = $('input.__ponzu.minute'),
-				publish_time_pd = $('select.__ponzu.period'),
-				publish_date_yyyy = $('input.__ponzu.year'),
-				publish_date_mm = $('select.__ponzu.month'),
-				publish_date_dd = $('input.__ponzu.day'),
-				timestamp = $('input.__ponzu.timestamp'),
-				updated = $('input.__ponzu.updated'),
+			var publish_time_hh = $('input.__kudzu.hour'),
+				publish_time_mm = $('input.__kudzu.minute'),
+				publish_time_pd = $('select.__kudzu.period'),
+				publish_date_yyyy = $('input.__kudzu.year'),
+				publish_date_mm = $('select.__kudzu.month'),
+				publish_date_dd = $('input.__kudzu.day'),
+				timestamp = $('input.__kudzu.timestamp'),
+				updated = $('input.__kudzu.updated'),
 				getFields = function() {
 					return {
 						hour: publish_time_hh,

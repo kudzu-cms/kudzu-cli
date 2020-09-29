@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-// buildOutputName returns the correct ponzu-server file name
+// buildOutputName returns the correct kudzu-server file name
 // based on the host Operating System
 func buildOutputName() string {
 	if runtime.GOOS == "windows" {
-		return "ponzu-server.exe"
+		return "kudzu-server.exe"
 	}
 
-	return "ponzu-server"
+	return "kudzu-server"
 }
 
 // resolve GOPATH. In 1.8 can be default, or custom. A custom GOPATH can

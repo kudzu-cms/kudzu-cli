@@ -26,8 +26,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
-	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/db"
 )
 
 func publicKey(priv interface{}) interface{} {
@@ -79,7 +79,7 @@ func setupDev() {
 	template := x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
-			Organization: []string{"Ponzu Dev Server"},
+			Organization: []string{"kudzu Dev Server"},
 		},
 		NotBefore: notBefore,
 		NotAfter:  notAfter,

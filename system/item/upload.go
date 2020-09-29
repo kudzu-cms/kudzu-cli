@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/management/editor"
+	"github.com/kudzu-cms/kudzu/management/editor"
 )
 
 // FileUpload represents the file uploaded to the system
@@ -71,7 +71,7 @@ func (f *FileUpload) MarshalEditor() ([]byte, error) {
 				right: '0px'
 			});
 
-			var contentOnly = $('.content-only.__ponzu');
+			var contentOnly = $('.content-only.__kudzu');
 			contentOnly.hide();
 			contentOnly.find('input, textarea, select').attr('name', '');
 

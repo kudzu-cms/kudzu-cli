@@ -12,20 +12,20 @@ import (
 
 var upgradeCmd = &cobra.Command{
 	Use:   "upgrade",
-	Short: "upgrades your project to the current ponzu version",
+	Short: "upgrades your project to the current kudzu version",
 	Long: `Will backup your own custom project code (like content, addons, uploads, etc)
-if necessary. Before running '$ ponzu upgrade', you should update the 'ponzu'
-package by running '$ go get -u github.com/bobbygryzynger/ponzu/...'`,
-	Example: `$ ponzu upgrade`,
+if necessary. Before running '$ kudzu upgrade', you should update the 'kudzu'
+package by running '$ go get -u github.com/kudzu-cms/kudzu/...'`,
+	Example: `$ kudzu upgrade`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		// confirm since upgrade will replace Ponzu core files
+		// confirm since upgrade will replace kudzu core files
 		path, err := os.Getwd()
 		if err != nil {
 			return fmt.Errorf("Failed to find current directory: %s", err)
 		}
 
 		fmt.Println("Only files you added to this directory, 'addons' and 'content' will be preserved.")
-		fmt.Println("Changes you made to Ponzu's internal code will be overwritten.")
+		fmt.Println("Changes you made to kudzu's internal code will be overwritten.")
 		fmt.Println("Upgrade this project? (y/N):")
 
 		answer, err := getAnswer()
@@ -38,7 +38,7 @@ package by running '$ go get -u github.com/bobbygryzynger/ponzu/...'`,
 			fmt.Println("")
 
 		case "y", "yes":
-			err := upgradePonzuProjectDir(path)
+			err := upgradekudzuProjectDir(path)
 			if err != nil {
 				return err
 			}
@@ -50,11 +50,11 @@ package by running '$ go get -u github.com/bobbygryzynger/ponzu/...'`,
 	},
 }
 
-func upgradePonzuProjectDir(path string) error {
+func upgradekudzuProjectDir(path string) error {
 	core := []string{
 		".gitattributes",
 		"LICENSE",
-		"ponzu-banner.png",
+		"kudzu-banner.png",
 		"README.md",
 		"cmd",
 		"deployment",
@@ -65,14 +65,14 @@ func upgradePonzuProjectDir(path string) error {
 		"examples",
 	}
 
-	stamp := fmt.Sprintf("ponzu-%d.bak", time.Now().Unix())
+	stamp := fmt.Sprintf("kudzu-%d.bak", time.Now().Unix())
 	temp := filepath.Join(os.TempDir(), stamp)
 	err := os.Mkdir(temp, os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err
 	}
 
-	// track non-Ponzu core items (added by user)
+	// track non-kudzu core items (added by user)
 	var user []os.FileInfo
 	list, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -94,7 +94,7 @@ func upgradePonzuProjectDir(path string) error {
 		}
 	}
 
-	// move non-Ponzu files to temp location
+	// move non-kudzu files to temp location
 	fmt.Println("Preserving files to be restored after upgrade...")
 	for _, item := range user {
 		src := filepath.Join(path, item.Name())
@@ -118,7 +118,7 @@ func upgradePonzuProjectDir(path string) error {
 	for _, item := range list {
 		err := os.RemoveAll(filepath.Join(path, item.Name()))
 		if err != nil {
-			return fmt.Errorf("Failed to remove old Ponzu files.\n%s", err)
+			return fmt.Errorf("Failed to remove old kudzu files.\n%s", err)
 		}
 	}
 
@@ -127,7 +127,7 @@ func upgradePonzuProjectDir(path string) error {
 		if fork != "" {
 			fmt.Println("Upgrading from " + fork)
 		} else {
-			fmt.Println("Upgrading from 'ponzu-dev' branch")
+			fmt.Println("Upgrading from 'kudzu-dev' branch")
 		}
 	}
 	err = createProjectInDir(path)
@@ -137,12 +137,12 @@ func upgradePonzuProjectDir(path string) error {
 		fmt.Println("Your code is backed up at the following location:")
 		fmt.Println(temp)
 		fmt.Println("")
-		fmt.Println("Manually create a new Ponzu project here and copy those files within it to fully restore.")
+		fmt.Println("Manually create a new kudzu project here and copy those files within it to fully restore.")
 		fmt.Println("")
 		return err
 	}
 
-	// move non-Ponzu files from temp location backed
+	// move non-kudzu files from temp location backed
 	restore, err := ioutil.ReadDir(temp)
 	if err != nil {
 		return err
@@ -175,8 +175,8 @@ func upgradePonzuProjectDir(path string) error {
 }
 
 func init() {
-	upgradeCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
-	upgradeCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
+	upgradeCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for kudzu core development")
+	upgradeCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for kudzu core development")
 
 	rootCmd.AddCommand(upgradeCmd)
 }

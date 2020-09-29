@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/item"
-	"github.com/bobbygryzynger/ponzu/system/search"
+	"github.com/kudzu-cms/kudzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/search"
 
 	"github.com/boltdb/bolt"
 	"github.com/gofrs/uuid"
@@ -373,7 +373,7 @@ func Content(target string) ([]byte, error) {
 }
 
 // ContentMulti returns a set of content based on the the targets / identifiers
-// provided in Ponzu target string format: Type:ID
+// provided in kudzu target string format: Type:ID
 // NOTE: All targets should be of the same type
 func ContentMulti(targets []string) ([][]byte, error) {
 	var contents [][]byte

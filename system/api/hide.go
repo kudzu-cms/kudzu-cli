@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 func hide(res http.ResponseWriter, req *http.Request, it interface{}) bool {

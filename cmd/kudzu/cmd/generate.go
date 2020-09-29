@@ -273,7 +273,7 @@ func setFieldView(field *generateField, viewType string) error {
 		return err
 	}
 
-	tmplDir := filepath.Join(pwd, "cmd", "ponzu", "templates")
+	tmplDir := filepath.Join(pwd, "cmd", "kudzu", "templates")
 	tmplFromWithDelims := func(filename string, delim [2]string) (*template.Template, error) {
 		if delim[0] == "" || delim[1] == "" {
 			delim = [2]string{"{{", "}}"}
@@ -384,7 +384,7 @@ func generateContentType(args []string) error {
 		return fmt.Errorf("Failed to parse type args: %s", err.Error())
 	}
 
-	tmplPath := filepath.Join(pwd, "cmd", "ponzu", "templates", "gen-content.tmpl")
+	tmplPath := filepath.Join(pwd, "cmd", "kudzu", "templates", "gen-content.tmpl")
 	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template: %s", err.Error())
@@ -419,8 +419,8 @@ func generateContentType(args []string) error {
 var generateCmd = &cobra.Command{
 	Use:     "generate <generator type (,...fields)>",
 	Aliases: []string{"gen", "g"},
-	Short:   "generate boilerplate code for various Ponzu components",
-	Long: `Generate boilerplate code for various Ponzu components, such as 'content'.
+	Short:   "generate boilerplate code for various kudzu components",
+	Long: `Generate boilerplate code for various kudzu components, such as 'content'.
 
 The command above will generate a file 'content/review.go' with boilerplate
 methods, as well as struct definition, and corresponding field tags like:
@@ -436,7 +436,7 @@ The generate command will intelligently parse more sophisticated field names
 such as 'field_name' and convert it to 'FieldName' and vice versa, only where
 appropriate as per common Go idioms. Errors will be reported, but successful
 generate commands return nothing.`,
-	Example: `$ ponzu gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
+	Example: `$ kudzu gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
 }
 
 var contentCmd = &cobra.Command{

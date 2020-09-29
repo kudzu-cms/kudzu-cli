@@ -1,5 +1,5 @@
 // Package search is a wrapper around the blevesearch/bleve search indexing and
-// query package, and provides interfaces to extend Ponzu items with rich, full-text
+// query package, and provides interfaces to extend kudzu items with rich, full-text
 // search capability.
 package search
 
@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/blevesearch/bleve"
 	"github.com/blevesearch/bleve/mapping"
@@ -40,7 +40,7 @@ func init() {
 // the system for adding/deleting/checking data
 func MapIndex(typeName string) error {
 	// type assert for Searchable, get configuration (which can be overridden)
-	// by Ponzu user if defines own SearchMapping()
+	// by kudzu user if defines own SearchMapping()
 	it, ok := item.Types[typeName]
 	if !ok {
 		return fmt.Errorf("[search] MapIndex Error: Failed to MapIndex for %s, type doesn't exist", typeName)
@@ -134,7 +134,7 @@ func DeleteIndex(id string) error {
 	return nil
 }
 
-// TypeQuery conducts a search and returns a set of Ponzu "targets", Type:ID pairs,
+// TypeQuery conducts a search and returns a set of kudzu "targets", Type:ID pairs,
 // and an error. If there is no search index for the typeName (Type) provided,
 // db.ErrNoIndex will be returned as the error
 func TypeQuery(typeName, query string, count, offset int) ([]string, error) {

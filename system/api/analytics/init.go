@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
-	"github.com/bobbygryzynger/ponzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/cfg"
 )
 
 type apiRequest struct {
@@ -37,7 +37,7 @@ var (
 	requestChan chan apiRequest
 )
 
-// RANGE determines the number of days ponzu request analytics and metrics are
+// RANGE determines the number of days kudzu request analytics and metrics are
 // stored and displayed within the system
 const RANGE = 14
 

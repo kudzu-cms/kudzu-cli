@@ -1,4 +1,4 @@
-title: How to use Ponzu Addons
+title: How to use kudzu Addons
 
 # Coming soon
 

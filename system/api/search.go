@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
-	"github.com/bobbygryzynger/ponzu/system/search"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/search"
 )
 
 func searchContentHandler(res http.ResponseWriter, req *http.Request) {

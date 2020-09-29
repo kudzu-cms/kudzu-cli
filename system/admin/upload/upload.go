@@ -1,4 +1,4 @@
-// Package upload provides a re-usable file upload and storage utility for Ponzu
+// Package upload provides a re-usable file upload and storage utility for kudzu
 // systems to handle multipart form data.
 package upload
 
@@ -14,9 +14,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 // StoreFiles stores file uploads at paths like /YYYY/MM/filename.ext

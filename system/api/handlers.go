@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 // ErrNoAuth should be used to report failed auth requests

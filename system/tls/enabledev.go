@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/cfg"
 )
 
 // EnableDev generates self-signed SSL certificates to use HTTPS & HTTP/2 while

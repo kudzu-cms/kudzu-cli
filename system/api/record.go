@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/system/api/analytics"
+	"github.com/kudzu-cms/kudzu/system/api/analytics"
 )
 
 // Record wraps a HandlerFunc to record API requests for analytical purposes

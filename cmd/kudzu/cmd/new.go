@@ -17,12 +17,12 @@ var newCmd = &cobra.Command{
 immediately following the 'new' option in the $GOPATH/src directory. Note:
 'new' depends on the program 'git' and possibly a network connection. If
 there is no local repository to clone from at the local machine's $GOPATH,
-'new' will attempt to clone the 'github.com/bobbygryzynger/ponzu' package from
+'new' will attempt to clone the 'github.com/kudzu-cms/kudzu' package from
 over the network.`,
-	Example: `$ ponzu new github.com/nilslice/proj
-> New ponzu project created at $GOPATH/src/github.com/nilslice/proj`,
+	Example: `$ kudzu new github.com/nilslice/proj
+> New kudzu project created at $GOPATH/src/github.com/nilslice/proj`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		projectName := "ponzu"
+		projectName := "kudzu"
 		if len(args) > 0 {
 			projectName = args[0]
 		} else {
@@ -121,7 +121,7 @@ func createProjectInDir(path string) error {
 	if err != nil {
 		return err
 	}
-	repo := ponzuRepo
+	repo := kudzuRepo
 	local := filepath.Join(gopath, "src", filepath.Join(repo...))
 	network := "https://" + strings.Join(repo, "/") + ".git"
 	if !strings.HasPrefix(path, gopath) {
@@ -139,7 +139,7 @@ func createProjectInDir(path string) error {
 			local = filepath.Join(gopath, "src", fork)
 		}
 
-		err = execAndWait("git", "clone", local, "--branch", "ponzu-dev", "--single-branch", path)
+		err = execAndWait("git", "clone", local, "--branch", "kudzu-dev", "--single-branch", path)
 		if err != nil {
 			return err
 		}
@@ -149,7 +149,7 @@ func createProjectInDir(path string) error {
 			return err
 		}
 
-		fmt.Println("Dev build cloned from " + local + ":ponzu-dev")
+		fmt.Println("Dev build cloned from " + local + ":kudzu-dev")
 		return nil
 	}
 
@@ -176,7 +176,7 @@ func createProjectInDir(path string) error {
 		}
 	}
 
-	// create an internal vendor directory in ./cmd/ponzu and move content,
+	// create an internal vendor directory in ./cmd/kudzu and move content,
 	// management and system packages into it
 	err = vendorCorePackages(path)
 	if err != nil {
@@ -193,13 +193,13 @@ func createProjectInDir(path string) error {
 		}
 	}
 
-	fmt.Println("New ponzu project created at", path)
+	fmt.Println("New kudzu project created at", path)
 	return nil
 }
 
 func init() {
-	newCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for Ponzu core development")
-	newCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for Ponzu core development")
+	newCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for kudzu core development")
+	newCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for kudzu core development")
 
 	rootCmd.AddCommand(newCmd)
 }

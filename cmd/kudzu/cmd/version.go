@@ -13,14 +13,14 @@ import (
 var versionCmd = &cobra.Command{
 	Use:     "version",
 	Aliases: []string{"v"},
-	Short:   "Prints the version of Ponzu your project is using.",
-	Long: `Prints the version of Ponzu your project is using. Must be called from
-within a Ponzu project directory.`,
-	Example: `$ ponzu version
-> Ponzu v0.8.2
+	Short:   "Prints the version of kudzu your project is using.",
+	Long: `Prints the version of kudzu your project is using. Must be called from
+within a kudzu project directory.`,
+	Example: `$ kudzu version
+> kudzu v0.8.2
 (or)
-$ ponzu version --cli
-> Ponzu v0.9.2`,
+$ kudzu version --cli
+> kudzu v0.9.2`,
 	Run: func(cmd *cobra.Command, args []string) {
 		p, err := version(cli)
 		if err != nil {
@@ -28,21 +28,21 @@ $ ponzu version --cli
 			os.Exit(1)
 		}
 
-		fmt.Fprintf(os.Stdout, "Ponzu v%s\n", p["version"])
+		fmt.Fprintf(os.Stdout, "kudzu v%s\n", p["version"])
 	},
 }
 
 func version(isCLI bool) (map[string]interface{}, error) {
 	kv := make(map[string]interface{})
 
-	info := filepath.Join("cmd", "ponzu", "ponzu.json")
+	info := filepath.Join("cmd", "kudzu", "kudzu.json")
 	if isCLI {
 		gopath, err := getGOPATH()
 		if err != nil {
 			return nil, err
 		}
-		repo := filepath.Join(gopath, "src", "github.com", "bobbygryzynger", "ponzu")
-		info = filepath.Join(repo, "cmd", "ponzu", "ponzu.json")
+		repo := filepath.Join(gopath, "src", "github.com", "bobbygryzynger", "kudzu")
+		info = filepath.Join(repo, "cmd", "kudzu", "kudzu.json")
 	}
 
 	b, err := ioutil.ReadFile(info)

@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/tidwall/sjson"
 )
@@ -26,12 +26,12 @@ const (
 
 // Meta contains the basic information about the addon
 type Meta struct {
-	PonzuAddonName       string `json:"addon_name"`
-	PonzuAddonAuthor     string `json:"addon_author"`
-	PonzuAddonAuthorURL  string `json:"addon_author_url"`
-	PonzuAddonVersion    string `json:"addon_version"`
-	PonzuAddonReverseDNS string `json:"addon_reverse_dns"`
-	PonzuAddonStatus     string `json:"addon_status"`
+	kudzuAddonName       string `json:"addon_name"`
+	kudzuAddonAuthor     string `json:"addon_author"`
+	kudzuAddonAuthorURL  string `json:"addon_author_url"`
+	kudzuAddonVersion    string `json:"addon_version"`
+	kudzuAddonReverseDNS string `json:"addon_reverse_dns"`
+	kudzuAddonStatus     string `json:"addon_status"`
 }
 
 // Addon contains information about a provided addon to the system
@@ -44,16 +44,16 @@ type Addon struct {
 // addon.Meta and fn is a closure returning a pointer to your own addon type
 func Register(m Meta, fn func() interface{}) Addon {
 	// get or create the reverse DNS identifier
-	if m.PonzuAddonReverseDNS == "" {
+	if m.kudzuAddonReverseDNS == "" {
 		revDNS, err := reverseDNS(m)
 		if err != nil {
 			panic(err)
 		}
 
-		m.PonzuAddonReverseDNS = revDNS
+		m.kudzuAddonReverseDNS = revDNS
 	}
 
-	Types[m.PonzuAddonReverseDNS] = fn
+	Types[m.kudzuAddonReverseDNS] = fn
 
 	a := Addon{Meta: m}
 
@@ -69,25 +69,25 @@ func Register(m Meta, fn func() interface{}) Addon {
 // 1. Validating the Addon struct
 // 2. Saving it to the __addons bucket in DB with id/key = addon_reverse_dns
 func register(a Addon) error {
-	if a.PonzuAddonName == "" {
-		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "PonzuAddonName")
+	if a.kudzuAddonName == "" {
+		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "kudzuAddonName")
 	}
-	if a.PonzuAddonAuthor == "" {
-		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "PonzuAddonAuthor")
+	if a.kudzuAddonAuthor == "" {
+		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "kudzuAddonAuthor")
 	}
-	if a.PonzuAddonAuthorURL == "" {
-		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "PonzuAddonAuthorURL")
+	if a.kudzuAddonAuthorURL == "" {
+		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "kudzuAddonAuthorURL")
 	}
-	if a.PonzuAddonVersion == "" {
-		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "PonzuAddonVersion")
+	if a.kudzuAddonVersion == "" {
+		return fmt.Errorf(`Addon must have valid Meta struct embedded: missing %s field.`, "kudzuAddonVersion")
 	}
 
-	if _, ok := Types[a.PonzuAddonReverseDNS]; !ok {
-		return fmt.Errorf(`Addon "%s" has no record in the addons.Types map`, a.PonzuAddonName)
+	if _, ok := Types[a.kudzuAddonReverseDNS]; !ok {
+		return fmt.Errorf(`Addon "%s" has no record in the addons.Types map`, a.kudzuAddonName)
 	}
 
 	// check if addon is already registered in db as addon_reverse_dns
-	if db.AddonExists(a.PonzuAddonReverseDNS) {
+	if db.AddonExists(a.kudzuAddonReverseDNS) {
 		return nil
 	}
 
@@ -110,18 +110,18 @@ func register(a Addon) error {
 		vals.Set(k, fmt.Sprintf("%v", v))
 	}
 
-	vals.Set("addon_name", a.PonzuAddonName)
-	vals.Set("addon_author", a.PonzuAddonAuthor)
-	vals.Set("addon_author_url", a.PonzuAddonAuthorURL)
-	vals.Set("addon_version", a.PonzuAddonVersion)
-	vals.Set("addon_reverse_dns", a.PonzuAddonReverseDNS)
+	vals.Set("addon_name", a.kudzuAddonName)
+	vals.Set("addon_author", a.kudzuAddonAuthor)
+	vals.Set("addon_author_url", a.kudzuAddonAuthorURL)
+	vals.Set("addon_version", a.kudzuAddonVersion)
+	vals.Set("addon_reverse_dns", a.kudzuAddonReverseDNS)
 	vals.Set("addon_status", StatusDisabled)
 
 	// db.SetAddon is like SetContent, but rather than the key being an int64 ID,
 	// we need it to be a string based on the addon_reverse_dns
-	kind, ok := Types[a.PonzuAddonReverseDNS]
+	kind, ok := Types[a.kudzuAddonReverseDNS]
 	if !ok {
-		return fmt.Errorf("Error: no addon to set with id: %s", a.PonzuAddonReverseDNS)
+		return fmt.Errorf("Error: no addon to set with id: %s", a.kudzuAddonReverseDNS)
 	}
 
 	err = db.SetAddon(vals, kind())
@@ -217,16 +217,16 @@ func setStatus(key, status string) error {
 }
 
 func reverseDNS(meta Meta) (string, error) {
-	u, err := url.Parse(meta.PonzuAddonAuthorURL)
+	u, err := url.Parse(meta.kudzuAddonAuthorURL)
 	if err != nil {
 		return "", nil
 	}
 
 	if u.Host == "" {
-		return "", fmt.Errorf(`Error parsing Addon Author URL: %s. Ensure URL is formatted as "scheme://hostname/path?query" (path & query optional)`, meta.PonzuAddonAuthorURL)
+		return "", fmt.Errorf(`Error parsing Addon Author URL: %s. Ensure URL is formatted as "scheme://hostname/path?query" (path & query optional)`, meta.kudzuAddonAuthorURL)
 	}
 
-	name := strings.Replace(meta.PonzuAddonName, " ", "", -1)
+	name := strings.Replace(meta.kudzuAddonName, " ", "", -1)
 
 	// reverse the host name parts, split on '.', ex. bosssauce.it => it.bosssauce
 	parts := strings.Split(u.Host, ".")
@@ -241,5 +241,5 @@ func reverseDNS(meta Meta) (string, error) {
 // String returns the addon name and overrides the item String() method in
 // item.Identifiable interface
 func (a *Addon) String() string {
-	return a.PonzuAddonName
+	return a.kudzuAddonName
 }

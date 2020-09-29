@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/admin/upload"
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/admin/upload"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/gorilla/schema"
 )

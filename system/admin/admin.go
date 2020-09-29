@@ -9,10 +9,10 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/system/admin/user"
-	"github.com/bobbygryzynger/ponzu/system/api/analytics"
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/admin/user"
+	"github.com/kudzu-cms/kudzu/system/api/analytics"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 var startAdminHTML = `<!doctype html>
@@ -82,7 +82,7 @@ var endAdminHTML = `
         </div>
         <footer class="row">
             <div class="col s12">
-                <p class="center-align">Powered by &copy; <a target="_blank" href="https://bobbygryzynger.org">Ponzu</a> &nbsp;&vert;&nbsp; open-sourced by <a target="_blank" href="https://www.bosssauce.it">Boss Sauce Creative</a></p>
+                <p class="center-align">Powered by &copy; <a target="_blank" href="https://bobbygryzynger.org">kudzu</a> &nbsp;&vert;&nbsp; open-sourced by <a target="_blank" href="https://www.bosssauce.it">Boss Sauce Creative</a></p>
             </div>
         </footer>
     </body>
@@ -426,7 +426,7 @@ func UsersList(req *http.Request) ([]byte, error) {
             {{ range .Users }}
             <li class="col s9">
                 {{ .Email }}
-                <form enctype="multipart/form-data" class="delete-user __ponzu right" action="/admin/configure/users/delete" method="post">
+                <form enctype="multipart/form-data" class="delete-user __kudzu right" action="/admin/configure/users/delete" method="post">
                     <span>Delete</span>
                     <input type="hidden" name="email" value="{{ .Email }}"/>
                     <input type="hidden" name="id" value="{{ .ID }}"/>
@@ -439,9 +439,9 @@ func UsersList(req *http.Request) ([]byte, error) {
 	script := `
     <script>
         $(function() {
-            var del = $('.delete-user.__ponzu span');
+            var del = $('.delete-user.__kudzu span');
             del.on('click', function(e) {
-                if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to delete this user?\nThis cannot be undone.")) {
+                if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to delete this user?\nThis cannot be undone.")) {
                     $(e.target).parent().submit();
                 }
             });

@@ -7,17 +7,17 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/system/admin"
-	"github.com/bobbygryzynger/ponzu/system/api"
-	"github.com/bobbygryzynger/ponzu/system/api/analytics"
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/tls"
+	"github.com/kudzu-cms/kudzu/system/admin"
+	"github.com/kudzu-cms/kudzu/system/api"
+	"github.com/kudzu-cms/kudzu/system/api/analytics"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/tls"
 	"github.com/spf13/cobra"
 )
 
 // ErrWrongOrMissingService informs a user that the services to run must be
 // explicitly specified when serve is called
-var ErrWrongOrMissingService = errors.New("To execute 'ponzu serve', " +
+var ErrWrongOrMissingService = errors.New("To execute 'kudzu serve', " +
 	"you must specify which service to run.")
 
 var serveCmd = &cobra.Command{
@@ -105,9 +105,9 @@ var serveCmd = &cobra.Command{
 
 func init() {
 
-	serveCmd.Flags().StringVar(&bind, "bind", "localhost", "address for ponzu to bind the HTTP(S) server")
-	serveCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for ponzu to bind its HTTPS listener")
-	serveCmd.Flags().IntVar(&port, "port", 8080, "port for ponzu to bind its HTTP listener")
+	serveCmd.Flags().StringVar(&bind, "bind", "localhost", "address for kudzu to bind the HTTP(S) server")
+	serveCmd.Flags().IntVar(&httpsport, "https-port", 443, "port for kudzu to bind its HTTPS listener")
+	serveCmd.Flags().IntVar(&port, "port", 8080, "port for kudzu to bind its HTTP listener")
 	serveCmd.Flags().IntVar(&docsport, "docs-port", 1234, "[dev environment] override the documentation server port")
 	serveCmd.Flags().BoolVar(&docs, "docs", false, "[dev environment] run HTTP server to view local HTML documentation")
 	serveCmd.Flags().BoolVar(&https, "https", false, "enable automatic TLS/SSL certificate management")

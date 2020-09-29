@@ -35,12 +35,12 @@ import (
 func InputRepeater(fieldName string, p interface{}, attrs map[string]string) []byte {
 	// find the field values in p to determine pre-filled inputs
 	fieldVals := ValueFromStructField(fieldName, p)
-	vals := strings.Split(fieldVals, "__ponzu")
+	vals := strings.Split(fieldVals, "__kudzu")
 
 	scope := TagNameFromStructField(fieldName, p)
 	html := bytes.Buffer{}
 
-	_, err := html.WriteString(`<span class="__ponzu-repeat ` + scope + `">`)
+	_, err := html.WriteString(`<span class="__kudzu-repeat ` + scope + `">`)
 	if err != nil {
 		log.Println("Error writing HTML string to InputRepeater buffer")
 		return nil
@@ -86,7 +86,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs, options map[string]s
 	// <option value="{map key}">{map value}</option>
 	scope := TagNameFromStructField(fieldName, p)
 	html := bytes.Buffer{}
-	_, err := html.WriteString(`<span class="__ponzu-repeat ` + scope + `">`)
+	_, err := html.WriteString(`<span class="__kudzu-repeat ` + scope + `">`)
 	if err != nil {
 		log.Println("Error writing HTML string to SelectRepeater buffer")
 		return nil
@@ -94,7 +94,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs, options map[string]s
 
 	// find the field values in p to determine if an option is pre-selected
 	fieldVals := ValueFromStructField(fieldName, p)
-	vals := strings.Split(fieldVals, "__ponzu")
+	vals := strings.Split(fieldVals, "__kudzu")
 
 	if _, ok := attrs["class"]; ok {
 		attrs["class"] += " browser-default"
@@ -179,7 +179,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs, options map[string]s
 func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []byte {
 	// find the field values in p to determine if an option is pre-selected
 	fieldVals := ValueFromStructField(fieldName, p)
-	vals := strings.Split(fieldVals, "__ponzu")
+	vals := strings.Split(fieldVals, "__kudzu")
 
 	addLabelFirst := func(i int, label string) string {
 		if i == 0 {
@@ -201,7 +201,7 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 					<input class="file-path validate" placeholder="Add %[5]s" type="text" />
 				</div>
 			</div>
-			<div class="preview"><div class="img-clip"></div></div>			
+			<div class="preview"><div class="img-clip"></div></div>
 			<input class="store %[4]s" type="hidden" name="%[1]s" value="%[3]s" />
 		</div>`
 		// 1=nameidx, 2=addLabelFirst, 3=val, 4=className, 5=fieldName
@@ -228,7 +228,7 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 					viewLink.setAttribute('target', '_blank');
 					viewLink.appendChild(viewLinkText);
 					viewLink.style.display = 'block';
-					viewLink.style.marginRight = '10px';					
+					viewLink.style.marginRight = '10px';
 					viewLink.style.textAlign = 'right';
 					iconLaunch.className = 'material-icons tiny';
 					iconLaunch.style.position = 'relative';
@@ -236,7 +236,7 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 					iconLaunch.appendChild(iconLaunchText);
 					viewLink.appendChild(iconLaunch);
 					preview.append(viewLink);
-				
+
 				// when %[2]s input changes (file is selected), remove
 				// the 'name' and 'value' attrs from the hidden store input.
 				// add the 'name' attr to %[2]s input
@@ -266,11 +266,11 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 							clip.append(video);
 							break;
 						default:
-							$(img).attr('src', '/admin/static/dashboard/img/ponzu-file.png');
+							$(img).attr('src', '/admin/static/dashboard/img/kudzu-file.png');
 							$(unknown)
 								.css({
-									position: 'absolute', 
-									top: '10px', 
+									position: 'absolute',
+									top: '10px',
 									left: '10px',
 									border: 'solid 1px #ddd',
 									padding: '7px 7px 5px 12px',
@@ -278,7 +278,7 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 									background: '#888',
 									color: '#fff',
 									textTransform: 'uppercase',
-									letterSpacing: '2px' 
+									letterSpacing: '2px'
 								})
 								.text(ext);
 							clip.append(img);
@@ -296,7 +296,7 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 								resetImage();
 							});
 						})
-						
+
 					});
 					clip.append(reset);
 				}
@@ -307,14 +307,14 @@ func FileRepeater(fieldName string, p interface{}, attrs map[string]string) []by
 					upload.attr('name', '%[1]s');
 					clip.empty();
 				}
-			});	
+			});
 		</script>`
 		// 1=nameidx, 2=className
 
 	name := TagNameFromStructField(fieldName, p)
 
 	html := bytes.Buffer{}
-	_, err := html.WriteString(`<span class="__ponzu-repeat ` + name + `">`)
+	_, err := html.WriteString(`<span class="__kudzu-repeat ` + name + `">`)
 	if err != nil {
 		log.Println("Error writing HTML string to FileRepeater buffer")
 		return nil
@@ -353,7 +353,7 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
     <script>
         $(function() {
             // define the scope of the repeater
-            var scope = $('.__ponzu-repeat.` + scope + `');
+            var scope = $('.__kudzu-repeat.` + scope + `');
 
             var getChildren = function() {
                 return scope.find('` + cloneSelector + `')
@@ -365,7 +365,7 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
                 var children = getChildren();
 
                 for (var i = 0; i < children.length; i++) {
-					var preset = false;					
+					var preset = false;
                     var $el = children.eq(i);
 					var name = '` + scope + `.'+String(i);
 
@@ -375,8 +375,8 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
 					// get the new name by setting it to an empty string
 					$el.find('input, select, textarea').each(function(i, elem) {
 						var $elem = $(elem);
-						
-						// if the elem is not ` + inputSelector + ` and has no value 
+
+						// if the elem is not ` + inputSelector + ` and has no value
 						// set the name to an empty string
 						if (!$elem.is('` + inputSelector + `')) {
 							if ($elem.val() === '' || $elem.is('.file-path')) {
@@ -384,15 +384,15 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
 							} else {
 								$elem.attr('name', name);
 								preset = true;
-							}						
+							}
 						}
-					});      
+					});
 
 					// if there is a preset value, remove the name attr from the
 					// ` + inputSelector + ` element so it doesn't overwrite db
 					if (preset) {
-						$el.find('` + inputSelector + `').attr('name', '');														
-					}          
+						$el.find('` + inputSelector + `').attr('name', '');
+					}
 
                     // reset controllers
                     $el.find('.controls').remove();
@@ -403,7 +403,7 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
 
             var addRepeater = function(e) {
                 e.preventDefault();
-                
+
                 var add = e.target;
 
                 // find and clone the repeatable input-like element
@@ -412,7 +412,7 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
 
                 // if clone has label, remove it
                 clone.find('label').remove();
-                
+
                 // remove the pre-filled value from clone
                 clone.find('` + inputSelector + `').val('');
 				clone.find('input').val('');
@@ -439,13 +439,13 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
                 }
 
                 var del = e.target;
-                
+
                 // pass label onto next input-like element if del 0 index
                 var wrapper = $(del).parent().closest('` + cloneSelector + `');
                 if (wrapper.find('` + inputSelector + `').attr('name') === '` + scope + `.0') {
                     wrapper.next().append(wrapper.find('label'))
                 }
-                
+
                 wrapper.remove();
 
                 resetFieldNames();
@@ -459,7 +459,7 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
 
                 var del = $('<button>-</button>');
                 del.addClass('repeater-del');
-                del.addClass('btn-flat waves-effect waves-red');                
+                del.addClass('btn-flat waves-effect waves-red');
 
                 var controls = $('<span></span>');
                 controls.addClass('controls');
@@ -480,10 +480,10 @@ func RepeatController(fieldName string, p interface{}, inputSelector, cloneSelec
                 var children = getChildren()
                 for (var i = 0; i < children.length; i++) {
                     var el = children[i];
-                    
+
                     $(el).find('` + inputSelector + `').parent().find('.controls').remove();
-                    
-                    var controls = createControls();                                        
+
+                    var controls = createControls();
                     $(el).append(controls);
                 }
             }

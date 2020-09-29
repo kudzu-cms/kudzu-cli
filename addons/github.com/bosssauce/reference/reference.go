@@ -1,4 +1,4 @@
-// Package reference is a Ponzu addon to enable content editors to create
+// Package reference is a kudzu addon to enable content editors to create
 // references to other content types which are stored as query strings within
 // the referencer's content DB
 package reference
@@ -12,8 +12,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/bobbygryzynger/ponzu/management/editor"
-	"github.com/bobbygryzynger/ponzu/system/addon"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/addon"
 )
 
 // Select returns the []byte of a <select> HTML element plus internal <options> with a label.
@@ -39,7 +39,7 @@ func Select(fieldName string, p interface{}, attrs map[string]string, contentTyp
 func SelectRepeater(fieldName string, p interface{}, attrs map[string]string, contentType, tmplString string) []byte {
 	scope := editor.TagNameFromStructField(fieldName, p)
 	html := bytes.Buffer{}
-	_, err := html.WriteString(`<span class="__ponzu-repeat ` + scope + `">`)
+	_, err := html.WriteString(`<span class="__kudzu-repeat ` + scope + `">`)
 	if err != nil {
 		log.Println("Error writing HTML string to SelectRepeater buffer")
 		return nil
@@ -53,7 +53,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs map[string]string, co
 
 	// find the field values in p to determine if an option is pre-selected
 	fieldVals := editor.ValueFromStructField(fieldName, p)
-	vals := strings.Split(fieldVals, "__ponzu")
+	vals := strings.Split(fieldVals, "__kudzu")
 
 	options, err := encodeDataToOptions(contentType, tmplString)
 	if err != nil {

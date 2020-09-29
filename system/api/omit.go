@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/item"
 
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"

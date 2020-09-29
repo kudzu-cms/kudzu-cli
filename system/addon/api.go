@@ -1,4 +1,4 @@
-// Package addon provides an API for Ponzu addons to interface with the system
+// Package addon provides an API for kudzu addons to interface with the system
 package addon
 
 import (
@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/db"
 )
 
 // QueryOptions is a mirror of the same struct in db package and are re-declared

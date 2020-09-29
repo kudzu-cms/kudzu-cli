@@ -1,4 +1,4 @@
-module github.com/bobbygryzynger/ponzu
+module github.com/kudzu-cms/kudzu
 
 go 1.15
 

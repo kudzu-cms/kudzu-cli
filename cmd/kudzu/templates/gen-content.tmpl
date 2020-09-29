@@ -5,23 +5,23 @@ import (
 	{{ if .HasReferences }}
 	"github.com/bosssauce/reference"
 	{{ end }}
-	"github.com/ponzu-cms/ponzu/management/editor"
-	"github.com/ponzu-cms/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 type {{ .Name }} struct {
     item.Item
 
-    {{ range .Fields }}{{ .Name }} {{ .TypeName }} `json:"{{ .JSONName }}"`    
-    {{ end }}	
+    {{ range .Fields }}{{ .Name }} {{ .TypeName }} `json:"{{ .JSONName }}"`
+    {{ end }}
 }
 
 // MarshalEditor writes a buffer of html to edit a {{ .Name }} within the CMS
 // and implements editor.Editable
 func ({{ .Initial }} *{{ .Name }}) MarshalEditor() ([]byte, error) {
 	view, err := editor.Form({{ .Initial }},
-        // Take note that the first argument to these Input-like functions 
-        // is the string version of each {{ .Name }} field, and must follow 
+        // Take note that the first argument to these Input-like functions
+        // is the string version of each {{ .Name }} field, and must follow
         // this pattern for auto-decoding and auto-encoding reasons:
         {{ range .Fields }}editor.Field{
 			{{ .View }}

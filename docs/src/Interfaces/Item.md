@@ -1,19 +1,19 @@
 title: Item Package Interfaces
 
-Ponzu provides a set of interfaces from the `system/item` package which extend 
-the functionality of the content in your system and how it interacts with other 
-components inside and outside of Ponzu. 
+kudzu provides a set of interfaces from the `system/item` package which extend
+the functionality of the content in your system and how it interacts with other
+components inside and outside of kudzu.
 
 ---
 
 ## Interfaces
 
-### [item.Pushable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Pushable)
-Pushable, if [HTTP/2 Server Push](https://http2.github.io/http2-spec/#PushResources) 
-is supported by the client, can tell a handler which resources it would like to 
-have "pushed" preemptively to the client. This saves follow-on roundtrip requests 
-for other items which are referenced by the Pushable item. The `Push` method, the 
-only method in Pushable, must return a `[]string` containing the `json` field tags 
+### [item.Pushable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Pushable)
+Pushable, if [HTTP/2 Server Push](https://http2.github.io/http2-spec/#PushResources)
+is supported by the client, can tell a handler which resources it would like to
+have "pushed" preemptively to the client. This saves follow-on roundtrip requests
+for other items which are referenced by the Pushable item. The `Push` method, the
+only method in Pushable, must return a `[]string` containing the `json` field tags
 of the referenced items within the type.
 
 ##### Method Set
@@ -26,7 +26,7 @@ type Pushable interface {
 
 ##### Implementation
 The `Push` method returns a `[]string` containing the `json` tag field names for
-which you want to have pushed to a supported client and an error value. The values 
+which you want to have pushed to a supported client and an error value. The values
 for the field names **must** be URL paths, and cannot be from another origin.
 
 ```go
@@ -48,12 +48,12 @@ func (p *Post) Push(res http.ResponseWriter, req *http.Request) ([]string, error
 
 ---
 
-### [item.Hideable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Hideable)
-Hideable tells an API handler that data of this type shouldn’t be exposed outside 
+### [item.Hideable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Hideable)
+Hideable tells an API handler that data of this type shouldn’t be exposed outside
 the system. Hideable types cannot be used as references (relations in Content types).
-The `Hide` method, the only method in Hideable, takes an `http.ResponseWriter, *http.Request` 
-and returns an `error`. A special error in the `items` package, `ErrAllowHiddenItem` 
-can be returned as the error from Hide to instruct handlers to show hidden 
+The `Hide` method, the only method in Hideable, takes an `http.ResponseWriter, *http.Request`
+and returns an `error`. A special error in the `items` package, `ErrAllowHiddenItem`
+can be returned as the error from Hide to instruct handlers to show hidden
 content in specific cases.
 
 ##### Method Set
@@ -72,10 +72,10 @@ func (p *Post) Hide(res http.ResponseWriter, req *http.Request) error {
 
 ---
 
-### [item.Omittable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Omittable)
-Omittable tells a content API handler to keep certain fields from being exposed 
-through the JSON response. It's single method, `Omit` takes no arguments and 
-returns a `[]string` which must be made up of the JSON struct tags for the type 
+### [item.Omittable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Omittable)
+Omittable tells a content API handler to keep certain fields from being exposed
+through the JSON response. It's single method, `Omit` takes no arguments and
+returns a `[]string` which must be made up of the JSON struct tags for the type
 containing fields to be omitted and an error value.
 
 ##### Method Set
@@ -105,9 +105,9 @@ func (p *Post) Omit(res http.ResponseWriter, req *http.Request) ([]string, error
 
 ---
 
-### [item.Hookable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Hookable)
+### [item.Hookable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Hookable)
 Hookable provides lifecycle hooks into the http handlers which manage Save, Delete,
-Approve, Reject routines, and API response routines. All methods in its set take an 
+Approve, Reject routines, and API response routines. All methods in its set take an
 `http.ResponseWriter, *http.Request` and return an `error`. Hooks which relate to the API response, additionally take data of type `[]byte`, and may provide a return of the same type.
 
 ##### Method Set
@@ -159,7 +159,7 @@ type Hookable interface {
 ##### Implementations
 
 #### BeforeAPIResponse
-BeforeAPIResponse is called before content is sent over the Ponzu API, and 
+BeforeAPIResponse is called before content is sent over the kudzu API, and
 provides an opportunity to modify the response data. If a non-nil `error` value
 is returned, a 500 Internal Server Error is sent instead of the response.
 
@@ -170,8 +170,8 @@ func (p *Post) BeforeAPIResponse(res http.ResponseWriter, req *http.Request, dat
 ```
 
 #### AfterAPIResponse
-AfterAPIResponse is called after content is sent over the Ponzu API, whether
-modified or not. The sent response data is available to the hook. A non-nil 
+AfterAPIResponse is called after content is sent over the kudzu API, whether
+modified or not. The sent response data is available to the hook. A non-nil
 `error` return will simply generate a log message.
 
 ```go
@@ -181,7 +181,7 @@ func (p *Post) AfterAPIResponse(res http.ResponseWriter, req *http.Request, data
 ```
 
 #### BeforeAPICreate
-BeforeAPICreate is called before an item is created via a 3rd-party client. If a 
+BeforeAPICreate is called before an item is created via a 3rd-party client. If a
 non-nil `error` value is returned, the item will not be created/saved.
 
 ```go
@@ -193,7 +193,7 @@ func (p *Post) BeforeAPICreate(res http.ResponseWriter, req *http.Request) error
 #### AfterAPICreate
 AfterAPICreate is called after an item has been created via a 3rd-party client.
 At this point, the item has been saved to the database. If a non-nil `error` is
-returned, it will respond to the client with an empty response, so be sure to 
+returned, it will respond to the client with an empty response, so be sure to
 use the `http.ResponseWriter` from within your hook appropriately.
 
 ```go
@@ -203,9 +203,9 @@ func (p *Post) AfterAPICreate(res http.ResponseWriter, req *http.Request) error 
 ```
 
 #### BeforeApprove
-BeforeApprove is called before an item is merged as "Public" from its prior 
+BeforeApprove is called before an item is merged as "Public" from its prior
 status as "Pending". If a non-nil `error` value is returned, the item will not be
-appproved, and an error message is displayed to the Admin. 
+appproved, and an error message is displayed to the Admin.
 
 ```go
 func (p *Post) BeforeApprove(res http.ResponseWriter, req *http.Request) error {
@@ -215,7 +215,7 @@ func (p *Post) BeforeApprove(res http.ResponseWriter, req *http.Request) error {
 
 #### AfterApprove
 AfterApprove is called after an item has been merged as "Public" from its prior
-status as "Pending". If a non-nil `error` is returned, an error message is 
+status as "Pending". If a non-nil `error` is returned, an error message is
 displayed to the Admin, however the item will already be irreversibly merged.
 
 ```go
@@ -226,7 +226,7 @@ func (p *Post) AfterApprove(res http.ResponseWriter, req *http.Request) error {
 
 #### BeforeReject
 BeforeReject is called before an item is rejected and deleted by default. To reject
-an item, but not delete it, return a non-nil `error` from this hook - doing so 
+an item, but not delete it, return a non-nil `error` from this hook - doing so
 will allow the hook to do what you want it to do prior to the return, but the item
 will remain in the "Pending" section.
 
@@ -246,9 +246,9 @@ func (p *Post) AfterReject(res http.ResponseWriter, req *http.Request) error {
 ```
 
 #### BeforeSave
-BeforeSave is called before any CMS Admin or 3rd-party client triggers a save to 
-the database. This could be done by clicking the 'Save' button on a Content editor, 
-or by a API call to Create or Update the Content item. By returning a non-nil 
+BeforeSave is called before any CMS Admin or 3rd-party client triggers a save to
+the database. This could be done by clicking the 'Save' button on a Content editor,
+or by a API call to Create or Update the Content item. By returning a non-nil
 `error` value, the item will not be saved.
 
 ```go
@@ -258,8 +258,8 @@ func (p *Post) BeforeSave(res http.ResponseWriter, req *http.Request) error {
 ```
 
 #### AfterSave
-AfterSave is called after any CMS Admin or 3rd-party client triggers a save to 
-the database. This could be done by clicking the 'Save' button on a Content editor, 
+AfterSave is called after any CMS Admin or 3rd-party client triggers a save to
+the database. This could be done by clicking the 'Save' button on a Content editor,
 or by a API call to Create or Update the Content item.
 
 ```go
@@ -269,8 +269,8 @@ func (p *Post) AfterSave(res http.ResponseWriter, req *http.Request) error {
 ```
 
 #### BeforeDelete
-BeforeDelete is called before any CMS Admin or 3rd-party client triggers a delete to 
-the database. This could be done by clicking the 'Delete' button on a Content editor, 
+BeforeDelete is called before any CMS Admin or 3rd-party client triggers a delete to
+the database. This could be done by clicking the 'Delete' button on a Content editor,
 or by a API call to Delete the Content item. By returning a non-nil `error` value,
 the item will not be deleted.
 
@@ -281,8 +281,8 @@ func (p *Post) BeforeDelete(res http.ResponseWriter, req *http.Request) error {
 ```
 
 #### AfterDelete
-AfterSave is called after any CMS Admin or 3rd-party client triggers a delete to 
-the database. This could be done by clicking the 'Delete' button on a Content editor, 
+AfterSave is called after any CMS Admin or 3rd-party client triggers a delete to
+the database. This could be done by clicking the 'Delete' button on a Content editor,
 or by a API call to Delete the Content item.
 
 ```go
@@ -292,7 +292,7 @@ func (p *Post) AfterDelete(res http.ResponseWriter, req *http.Request) error {
 ```
 
 #### BeforeAPIDelete
-BeforeDelete is only called before a 3rd-party client triggers a delete to the 
+BeforeDelete is only called before a 3rd-party client triggers a delete to the
 database. By returning a non-nil `error` value, the item will not be deleted.
 
 ```go
@@ -302,7 +302,7 @@ func (p *Post) BeforeAPIDelete(res http.ResponseWriter, req *http.Request) error
 ```
 
 #### AfterAPIDelete
-AfterAPIDelete is only called after a 3rd-party client triggers a delete to the 
+AfterAPIDelete is only called after a 3rd-party client triggers a delete to the
 database.
 
 ```go
@@ -312,7 +312,7 @@ func (p *Post) AfterAPIDelete(res http.ResponseWriter, req *http.Request) error 
 ```
 
 #### BeforeAPIUpdate
-BeforeAPIUpdate is only called before a 3rd-party client triggers an update to 
+BeforeAPIUpdate is only called before a 3rd-party client triggers an update to
 the database. By returning a non-nil `error` value, the item will not be updated.
 
 ```go
@@ -322,7 +322,7 @@ func (p *Post) BeforeAPIUpdate(res http.ResponseWriter, req *http.Request) error
 ```
 
 #### AfterAPIUpdate
-AfterAPIUpdate is only called after a 3rd-party client triggers an update to 
+AfterAPIUpdate is only called after a 3rd-party client triggers an update to
 the database.
 
 ```go
@@ -333,7 +333,7 @@ func (p *Post) AfterAPIUpdate(res http.ResponseWriter, req *http.Request) error 
 
 #### BeforeAdminCreate
 BeforeAdminCreate is only called before a CMS Admin creates a new Content item.
-It is not called for subsequent saves to the item once it has been created and 
+It is not called for subsequent saves to the item once it has been created and
 assigned an ID. By returning a non-nil `error` value, the item will not be created.
 
 ```go
@@ -344,7 +344,7 @@ func (p *Post) BeforeAdminCreate(res http.ResponseWriter, req *http.Request) err
 
 #### AfterAdminCreate
 AfterAdminCreate is only called after a CMS Admin creates a new Content item.
-It is not called for subsequent saves to the item once it has been created and 
+It is not called for subsequent saves to the item once it has been created and
 assigned an ID.
 
 ```go
@@ -354,7 +354,7 @@ func (p *Post) AfterAdminCreate(res http.ResponseWriter, req *http.Request) erro
 ```
 
 #### BeforeAdminUpdate
-BeforeAdminUpdate is only called before a CMS Admin updates a Content item. By 
+BeforeAdminUpdate is only called before a CMS Admin updates a Content item. By
 returning a non-nil `error`, the item will not be updated.
 
 ```go
@@ -403,7 +403,7 @@ func (p *Post) BeforeEnable(http.ResponseWriter, *http.Request) error {
 ```
 
 #### AfterEnable
-AfterEnable is only applicable to Addon items, and is called after the addon 
+AfterEnable is only applicable to Addon items, and is called after the addon
 changes status to "Enabled".
 ```go
 func (p *Post) AfterEnable(http.ResponseWriter, *http.Request) error {
@@ -422,7 +422,7 @@ func (p *Post) BeforeDisable(http.ResponseWriter, *http.Request) error {
 ```
 
 #### AfterDisable
-AfterDisable is only applicable to Addon items, and is called after the addon 
+AfterDisable is only applicable to Addon items, and is called after the addon
 changes status to "Disabled".
 ```go
 func (p *Post) AfterDisable(http.ResponseWriter, *http.Request) error {
@@ -430,18 +430,18 @@ func (p *Post) AfterDisable(http.ResponseWriter, *http.Request) error {
 }
 ```
 
-Hookable is implemented by Item by default as no-ops which are expected to be overridden. 
+Hookable is implemented by Item by default as no-ops which are expected to be overridden.
 
-!!! note "Note" 
-    returning an error from any of these `Hookable` methods will end the request, 
-    causing it to halt immediately after the hook. For example, returning an `error` 
-    from `BeforeDelete` will result in the content being kept in the database. 
-    The same logic applies to all of these interface methods that return an error 
+!!! note "Note"
+    returning an error from any of these `Hookable` methods will end the request,
+    causing it to halt immediately after the hook. For example, returning an `error`
+    from `BeforeDelete` will result in the content being kept in the database.
+    The same logic applies to all of these interface methods that return an error
     - **the error defines the behavior**.
 
 ---
 
-### [item.Identifiable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Identifiable)
+### [item.Identifiable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Identifiable)
 Identifiable enables a struct to have its ID set/get. Typically this is done to set an ID to -1 indicating it is new for DB inserts, since by default a newly initialized struct would have an ID of 0, the int zero-value, and BoltDB's starting key per bucket is 0, thus overwriting the first record.
 Most notable, Identifiable’s `String` method is used to set a meaningful display name for an Item. `String` is called by default in the Admin dashboard to show the Items of certain types, and in the default creation of an Item’s slug.
 Identifiable is implemented by Item by default.
@@ -457,9 +457,9 @@ type Identifiable interface {
 ```
 
 ##### Implementation
-`item.Identifiable` has a default implementation in the `system/item` package. 
-It is not advised to override these methods, with the exception of `String()`, 
-which is commonly used to set the display name of Content items when listed in 
+`item.Identifiable` has a default implementation in the `system/item` package.
+It is not advised to override these methods, with the exception of `String()`,
+which is commonly used to set the display name of Content items when listed in
 the CMS, and to customize slugs.
 
 ```go
@@ -481,7 +481,7 @@ func (i Item) String() string {
 ```
 ---
 
-### [item.Sluggable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Sluggable)
+### [item.Sluggable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Sluggable)
 Sluggable makes a struct locatable by URL with it's own path. As an Item implementing Sluggable, slugs may overlap. If this is an issue, make your content struct (or one which embeds Item) implement Sluggable and it will override the slug created by Item's `SetSlug` method with your own.
 It is not recommended to override `SetSlug`, but rather the `String` method on your content struct, which will have a similar, more predictable effect.
 Sluggable is implemented by Item by default.
@@ -514,7 +514,7 @@ func (i *Item) ItemSlug() string {
 ---
 
 
-### [item.Sortable](https://godoc.org/github.com/ponzu-cms/ponzu/system/item#Sortable)
+### [item.Sortable](https://godoc.org/github.com/kudzu-cms/kudzu/system/item#Sortable)
 Sortable enables items to be sorted by time, as per the sort.Interface interface. Sortable is implemented by Item by default.
 
 ##### Method Set
@@ -527,7 +527,7 @@ type Sortable interface {
 
 ##### Implementation
 `item.Sortable` has a default implementation in the `system/item` package. It is
-possible to override these methods on your own Content type, but beware, behavior 
+possible to override these methods on your own Content type, but beware, behavior
 is undefined.
 
 ```go

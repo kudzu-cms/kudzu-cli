@@ -15,7 +15,7 @@ func getWd() string {
 }
 
 func DataDir() string {
-	dataDir := os.Getenv("PONZU_DATA_DIR")
+	dataDir := os.Getenv("kudzu_DATA_DIR")
 	if dataDir == "" {
 		return getWd()
 	}
@@ -23,7 +23,7 @@ func DataDir() string {
 }
 
 func TlsDir() string {
-	tlsDir := os.Getenv("PONZU_TLS_DIR")
+	tlsDir := os.Getenv("kudzu_TLS_DIR")
 	if tlsDir == "" {
 		tlsDir = filepath.Join(getWd(), "system", "tls")
 	}
@@ -31,7 +31,7 @@ func TlsDir() string {
 }
 
 func AdminStaticDir() string {
-	staticDir := os.Getenv("PONZU_ADMINSTATIC_DIR")
+	staticDir := os.Getenv("kudzu_ADMINSTATIC_DIR")
 	if staticDir == "" {
 
 		staticDir = filepath.Join(getWd(), "system", "admin", "static")
@@ -40,7 +40,7 @@ func AdminStaticDir() string {
 }
 
 func UploadDir() string {
-	uploadDir := os.Getenv("PONZU_UPLOAD_DIR")
+	uploadDir := os.Getenv("kudzu_UPLOAD_DIR")
 	if uploadDir == "" {
 		uploadDir = filepath.Join(DataDir(), "uploads")
 	}
@@ -48,7 +48,7 @@ func UploadDir() string {
 }
 
 func SearchDir() string {
-	searchDir := os.Getenv("PONZU_SEARCH_DIR")
+	searchDir := os.Getenv("kudzu_SEARCH_DIR")
 	if searchDir == "" {
 		searchDir = filepath.Join(DataDir(), "search")
 	}

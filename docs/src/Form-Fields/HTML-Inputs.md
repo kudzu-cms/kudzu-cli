@@ -1,6 +1,6 @@
-title: HTML Input Elements for Ponzu Editor Forms
+title: HTML Input Elements for kudzu Editor Forms
 
-Ponzu provides a number of helpful HTML Inputs to create forms which CMS admins
+kudzu provides a number of helpful HTML Inputs to create forms which CMS admins
 use to manage content. The input functions are typically used inside a Content
 type's `MarshalEditor()` func from within an `editor.Form()` - for example:
 
@@ -42,7 +42,7 @@ func (p *Post) MarshalEditor() ([]byte, error) {
 
 ## Field Input Functions
 
-There are many of these input-like HTML view funcs exported from Ponzu's
+There are many of these input-like HTML view funcs exported from kudzu's
 `management/editor` package. Below is a list of the built-in options:
 
 ### `editor.Input`
@@ -73,7 +73,7 @@ editor.Field{
 ---
 
 ### `editor.InputRepeater`
-The `editor.InputRepeater` function applies a controller UI to the `editor.Input` 
+The `editor.InputRepeater` function applies a controller UI to the `editor.Input`
 view so any arbitrary number of inputs can be added for your field.
 
 !!! warning "Using Repeaters"
@@ -137,9 +137,9 @@ editor.Field{
 
 ### `editor.Richtext`
 The `editor.Richetext` function displays an HTML5 rich text / WYSYWIG editor which
-supports text formatting and styling, images, quotes, arbitrary HTML, and more. 
+supports text formatting and styling, images, quotes, arbitrary HTML, and more.
 
-The rich text editor is a modified version of [Summernote](http://summernote.org/) 
+The rich text editor is a modified version of [Summernote](http://summernote.org/)
 using a theme called [MaterialNote](https://github.com/Cerealkillerway/materialNote)
 
 ##### Screenshot
@@ -151,7 +151,7 @@ Richtext(fieldName string, p interface{}, attrs map[string]string) []byte
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.Richtext("Opinion", s, map[string]string{
@@ -177,7 +177,7 @@ Tags(fieldName string, p interface{}, attrs map[string]string) []byte
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.Tags("Category", s, map[string]string{
@@ -197,7 +197,7 @@ Admin dashboard. See also the [File Metadata API](/HTTP-APIs/File-Metadata.md).
 
 !!! warning "Field Type"
     When using the `editor.File` function, its corresponding field type must be
-    a **`string`**, as files will be stored as URL paths in the database. 
+    a **`string`**, as files will be stored as URL paths in the database.
 
 ##### Screenshot
 ![HTML File Input](/images/editor-file.png)
@@ -208,7 +208,7 @@ File(fieldName string, p interface{}, attrs map[string]string) []byte
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.File("Photo", s, map[string]string{
@@ -222,7 +222,7 @@ editor.Field{
 ---
 
 ### `editor.FileRepeater`
-The `editor.FileRepeater` function applies a controller UI to the `editor.File` 
+The `editor.FileRepeater` function applies a controller UI to the `editor.File`
 view so any arbitrary number of uploads can be added for your field.
 
 !!! warning "Using Repeaters"
@@ -238,7 +238,7 @@ FileRepeater(fieldName string, p interface{}, attrs map[string]string) []byte
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.FileRepeater("Photo", s, map[string]string{
@@ -264,7 +264,7 @@ func Select(fieldName string, p interface{}, attrs, options map[string]string) [
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.Select("Rating", s, map[string]string{
@@ -283,7 +283,7 @@ editor.Field{
 ---
 
 ### `editor.SelectRepeater`
-The `editor.SelectRepeater` function applies a controller UI to the `editor.Select` 
+The `editor.SelectRepeater` function applies a controller UI to the `editor.Select`
 view so any arbitrary number of dropdowns can be added for your field.
 
 ##### Screenshot
@@ -295,7 +295,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs, options map[string]s
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.SelectRepeater("Rating", s, map[string]string{
@@ -326,7 +326,7 @@ Textarea(fieldName string, p interface{}, attrs map[string]string) []byte
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: editor.Textarea("Readme", s, map[string]string{
@@ -341,8 +341,8 @@ editor.Field{
 
 ## Data References
 It is common to want to keep a reference from one Content type to another. To do
-this in Ponzu, use the [`bosssauce/reference`](https://github.com/bosssauce/reference) 
-package. It comes pre-installed with Ponzu as an ["Addon"](/Ponzu-Addons/Using-Addons).
+this in kudzu, use the [`bosssauce/reference`](https://github.com/bosssauce/reference)
+package. It comes pre-installed with kudzu as an ["Addon"](/kudzu-Addons/Using-Addons).
 
 ### `reference.Select`
 
@@ -355,7 +355,7 @@ func Select(fieldName string, p interface{}, attrs map[string]string, contentTyp
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: reference.Select("DirectedBy", s, map[string]string{
@@ -378,7 +378,7 @@ func SelectRepeater(fieldName string, p interface{}, attrs map[string]string, co
 ```
 
 ##### Example
-```go 
+```go
 ...
 editor.Field{
     View: reference.SelectRepeater("PlacesFilmed", s, map[string]string{

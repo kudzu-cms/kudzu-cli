@@ -6,10 +6,10 @@ import (
 
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/management/editor"
-	"github.com/bobbygryzynger/ponzu/system/admin/user"
-	"github.com/bobbygryzynger/ponzu/system/api"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/admin/user"
+	"github.com/kudzu-cms/kudzu/system/api"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 type Song struct {

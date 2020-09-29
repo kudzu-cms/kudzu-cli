@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/db"
 )
 
 // sendPreflight is used to respond to a cross-origin "OPTIONS" request

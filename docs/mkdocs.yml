@@ -1,9 +1,9 @@
 theme: material
-site_name: Ponzu
+site_name: kudzu
 docs_dir: src
 site_dir: build
-repo_name: ponzu-cms/ponzu
-repo_url: https://github.com/ponzu-cms/ponzu
+repo_name: kudzu-cms/kudzu
+repo_url: https://github.com/kudzu-cms/kudzu
 
 markdown_extensions:
       - codehilite(linenums=false)
@@ -21,7 +21,7 @@ extra:
     accent: light-blue
   social:
     - type: github
-      link: https://github.com/ponzu-cms
+      link: https://github.com/kudzu-cms
     - type: twitter
-      link: https://twitter.com/ponzu_cms
+      link: https://twitter.com/kudzu_cms
   logo: images/logo.png

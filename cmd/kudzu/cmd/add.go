@@ -16,9 +16,9 @@ var addCmd = &cobra.Command{
 	Aliases: []string{"a"},
 	Short:   "Downloads addon from specified import path",
 	Long: `Downloads addon from specified import path to $GOPATH/src and copys it to the
-current project's addons directory. Must be called from within a Ponzu project directory. Addon
-needs to imported in at least one content item for it to be included in the Ponzu server build.`,
-	Example: `$ ponzu add github.com/bosssauce/fbscheduler`,
+current project's addons directory. Must be called from within a kudzu project directory. Addon
+needs to imported in at least one content item for it to be included in the kudzu server build.`,
+	Example: `$ kudzu add github.com/bosssauce/fbscheduler`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// expecting two args, add/a and the go gettable package uri
 		if len(args) < 1 {
@@ -79,7 +79,7 @@ func replicateAll(src, dst string) error {
 
 		sep := string(filepath.Separator)
 
-		// base == the ponzu project dir + string(filepath.Separator)
+		// base == the kudzu project dir + string(filepath.Separator)
 		parts := strings.Split(src, sep)
 		base := strings.Join(parts[:len(parts)-1], sep)
 		base += sep
@@ -173,7 +173,7 @@ func copyFileContents(src, dst string) (err error) {
 
 // generic error return
 func addError(err error) error {
-	return errors.New("Ponzu add failed. " + "\n" + err.Error())
+	return errors.New("kudzu add failed. " + "\n" + err.Error())
 }
 
 func init() {

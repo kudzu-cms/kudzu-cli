@@ -1,11 +1,11 @@
-// Package config provides a content type to manage the Ponzu system's configuration
+// Package config provides a content type to manage the kudzu system's configuration
 // settings for things such as its name, domain, HTTP(s) port, email, server defaults
 // and backups.
 package config
 
 import (
-	"github.com/bobbygryzynger/ponzu/management/editor"
-	"github.com/bobbygryzynger/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 // Config represents the confirgurable options of the system
@@ -174,7 +174,7 @@ func (c *Config) MarshalEditor() ([]byte, error) {
 				right: '0px'
 			});
 
-			var contentOnly = $('.content-only.__ponzu');
+			var contentOnly = $('.content-only.__kudzu');
 			contentOnly.hide();
 			contentOnly.find('input, textarea, select').attr('name', '');
 

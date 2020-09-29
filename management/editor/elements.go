@@ -98,7 +98,7 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 					<input class="file-path validate" placeholder="` + attrs["label"] + `" type="text">
 				</div>
 			</div>
-			<div class="preview"><div class="img-clip"></div></div>			
+			<div class="preview"><div class="img-clip"></div></div>
 			<input class="store ` + name + `" type="hidden" name="` + name + `" value="` + value + `" />
 		</div>`
 
@@ -125,7 +125,7 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 					viewLink.setAttribute('target', '_blank');
 					viewLink.appendChild(viewLinkText);
 					viewLink.style.display = 'block';
-					viewLink.style.marginRight = '10px';					
+					viewLink.style.marginRight = '10px';
 					viewLink.style.textAlign = 'right';
 					iconLaunch.className = 'material-icons tiny';
 					iconLaunch.style.position = 'relative';
@@ -163,11 +163,11 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 							clip.append(video);
 							break;
 						default:
-							$(img).attr('src', '/admin/static/dashboard/img/ponzu-file.png');
+							$(img).attr('src', '/admin/static/dashboard/img/kudzu-file.png');
 							$(unknown)
 								.css({
-									position: 'absolute', 
-									top: '10px', 
+									position: 'absolute',
+									top: '10px',
 									left: '10px',
 									border: 'solid 1px #ddd',
 									padding: '7px 7px 5px 12px',
@@ -175,7 +175,7 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 									background: '#888',
 									color: '#fff',
 									textTransform: 'uppercase',
-									letterSpacing: '2px' 
+									letterSpacing: '2px'
 								})
 								.text(ext);
 							clip.append(img);
@@ -193,7 +193,7 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 								resetImage();
 							});
 						})
-						
+
 					});
 					clip.append(reset);
 				}
@@ -204,7 +204,7 @@ func File(fieldName string, p interface{}, attrs map[string]string) []byte {
 					upload.attr('name', '` + name + `');
 					clip.empty();
 				}
-			});	
+			});
 		</script>`
 
 	return []byte(tmpl + script)
@@ -253,7 +253,7 @@ func Richtext(fieldName string, p interface{}, attrs map[string]string) []byte {
 
 	script := `
 	<script>
-		$(function() { 
+		$(function() {
 			var _editor = $('.richtext.` + fieldName + `');
 			var hidden = $('.richtext-value.` + fieldName + `');
 
@@ -265,7 +265,7 @@ func Richtext(fieldName string, p interface{}, attrs map[string]string) []byte {
 					['font', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
 					['fontsize', ['fontsize']],
 					['color', ['color']],
-					['insert', ['link', 'picture', 'video', 'hr']],					
+					['insert', ['link', 'picture', 'video', 'hr']],
 					['para', ['ul', 'ol', 'paragraph']],
 					['table', ['table']],
 					['height', ['height']],
@@ -277,7 +277,7 @@ func Richtext(fieldName string, p interface{}, attrs map[string]string) []byte {
 					data.append("file", files[0]);
 					$.ajax({
 						data: data,
-						type: 'PUT',	
+						type: 'PUT',
 						url: '/admin/edit/upload',
 						cache: false,
 						contentType: false,
@@ -302,14 +302,14 @@ func Richtext(fieldName string, p interface{}, attrs map[string]string) []byte {
 
 			// update hidden input with encoded value on different events
 			_editor.on('materialnote.change', function(e, content, $editable) {
-				hidden.val(replaceBadChars(content));			
+				hidden.val(replaceBadChars(content));
 			});
 
 			_editor.on('materialnote.paste', function(e) {
-				hidden.val(replaceBadChars(_editor.code()));			
+				hidden.val(replaceBadChars(_editor.code()));
 			});
 
-			// bit of a hack to stop the editor buttons from causing a refresh when clicked 
+			// bit of a hack to stop the editor buttons from causing a refresh when clicked
 			$('.note-toolbar').find('button, i, a').on('click', function(e) { e.preventDefault(); });
 		});
 	</script>`
@@ -391,7 +391,7 @@ func Checkbox(fieldName string, p interface{}, attrs, options map[string]string)
 
 	// get the pre-checked options if this is already an existing post
 	checkedVals := ValueFromStructField(fieldName, p)
-	checked := strings.Split(checkedVals, "__ponzu")
+	checked := strings.Split(checkedVals, "__kudzu")
 
 	i := 0
 	for k, v := range options {
@@ -436,17 +436,17 @@ func Tags(fieldName string, p interface{}, attrs map[string]string) []byte {
 	// get the saved tags if this is already an existing post
 	values := ValueFromStructField(fieldName, p)
 	var tags []string
-	if strings.Contains(values, "__ponzu") {
-		tags = strings.Split(values, "__ponzu")
+	if strings.Contains(values, "__kudzu") {
+		tags = strings.Split(values, "__kudzu")
 	}
 
 	// case where there is only one tag stored, thus has no separator
-	if len(values) > 0 && !strings.Contains(values, "__ponzu") {
+	if len(values) > 0 && !strings.Contains(values, "__kudzu") {
 		tags = append(tags, values)
 	}
 
 	html := `
-	<div class="col s12 __ponzu-tags ` + name + `">
+	<div class="col s12 __kudzu-tags ` + name + `">
 		<label class="active">` + attrs["label"] + ` (Type and press "Enter")</label>
 		<div class="chips ` + name + `"></div>
 	`
@@ -455,7 +455,7 @@ func Tags(fieldName string, p interface{}, attrs map[string]string) []byte {
 	i := 0
 	for _, tag := range tags {
 		tagName := TagNameFromStructFieldMulti(fieldName, i, p)
-		html += `<input type="hidden" class="__ponzu-tag ` + tag + `" name=` + tagName + ` value="` + tag + `"/>`
+		html += `<input type="hidden" class="__kudzu-tag ` + tag + `" name=` + tagName + ` value="` + tag + `"/>`
 		initial = append(initial, `{tag: '`+tag+`'}`)
 		i++
 	}
@@ -463,37 +463,37 @@ func Tags(fieldName string, p interface{}, attrs map[string]string) []byte {
 	script := `
 	<script>
 		$(function() {
-			var tags = $('.__ponzu-tags.` + name + `');
+			var tags = $('.__kudzu-tags.` + name + `');
 			$('.chips.` + name + `').material_chip({
 				data: [` + strings.Join(initial, ",") + `],
 				secondaryPlaceholder: '+` + name + `'
-			});		
+			});
 
 			// handle events specific to tags
 			var chips = tags.find('.chips');
-			
+
 			chips.on('chip.add', function(e, chip) {
 				chips.parent().find('.empty-tag').remove();
-				
+
 				var input = $('<input>');
 				input.attr({
-					class: '__ponzu-tag '+chip.tag.split(' ').join('__'),
+					class: '__kudzu-tag '+chip.tag.split(' ').join('__'),
 					name: '` + name + `.'+String(tags.find('input[type=hidden]').length),
 					value: chip.tag,
 					type: 'hidden'
 				});
-				
+
 				tags.append(input);
 			});
 
 			chips.on('chip.delete', function(e, chip) {
 				// convert tag string to class-like selector "some tag" -> ".some.tag"
-				var sel = '.__ponzu-tag.' + chip.tag.split(' ').join('__');
+				var sel = '.__kudzu-tag.' + chip.tag.split(' ').join('__');
 				chips.parent().find(sel).remove();
 
 				// iterate through all hidden tag inputs to re-name them with the correct ` + name + `.index
 				var hidden = chips.parent().find('input[type=hidden]');
-				
+
 				// if there are no tags, set a blank
 				if (hidden.length === 0) {
 					var input = $('<input>');
@@ -502,11 +502,11 @@ func Tags(fieldName string, p interface{}, attrs map[string]string) []byte {
 						name: '` + name + `',
 						type: 'hidden'
 					});
-					
+
 					tags.append(input);
 				}
-				
-				// re-name hidden storage elements in necessary format 
+
+				// re-name hidden storage elements in necessary format
 				for (var i = 0; i < hidden.length; i++) {
 					$(hidden[i]).attr('name', '` + name + `.'+String(i));
 				}

@@ -1,5 +1,5 @@
 // Package api sets the various API handlers which provide an HTTP interface to
-// Ponzu content, and include the types and interfaces to enable client-side
+// kudzu content, and include the types and interfaces to enable client-side
 // interactivity with the system.
 package api
 

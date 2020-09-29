@@ -4,9 +4,9 @@
 
 set -ex
 
-cd /go/src/github.com/ponzu-cms/ci/test-project
+cd /go/src/github.com/kudzu-cms/ci/test-project
 
-ponzu run --dev-https &        
+kudzu run --dev-https &
 
 # Smoke test
 sleep 2
@@ -17,7 +17,7 @@ touch cookies
 
 # Create initial admin user
 curl -v --cookie-jar cookies \
-    -d "name=Test&domain=localhost&email=test@ponzu-cms.org&password=ponzu" \
+    -d "name=Test&domain=localhost&email=test@kudzu-cms.org&password=kudzu" \
     -X POST localhost:8080/admin/init
 
 #Test that content types were generated

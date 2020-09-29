@@ -12,18 +12,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/management/editor"
-	"github.com/bobbygryzynger/ponzu/management/format"
-	"github.com/bobbygryzynger/ponzu/management/manager"
-	"github.com/bobbygryzynger/ponzu/system/addon"
-	"github.com/bobbygryzynger/ponzu/system/admin/config"
-	"github.com/bobbygryzynger/ponzu/system/admin/upload"
-	"github.com/bobbygryzynger/ponzu/system/admin/user"
-	"github.com/bobbygryzynger/ponzu/system/api"
-	"github.com/bobbygryzynger/ponzu/system/api/analytics"
-	"github.com/bobbygryzynger/ponzu/system/db"
-	"github.com/bobbygryzynger/ponzu/system/item"
-	"github.com/bobbygryzynger/ponzu/system/search"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/management/format"
+	"github.com/kudzu-cms/kudzu/management/manager"
+	"github.com/kudzu-cms/kudzu/system/addon"
+	"github.com/kudzu-cms/kudzu/system/admin/config"
+	"github.com/kudzu-cms/kudzu/system/admin/upload"
+	"github.com/kudzu-cms/kudzu/system/admin/user"
+	"github.com/kudzu-cms/kudzu/system/api"
+	"github.com/kudzu-cms/kudzu/system/api/analytics"
+	"github.com/kudzu-cms/kudzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/item"
+	"github.com/kudzu-cms/kudzu/system/search"
 
 	"github.com/gorilla/schema"
 	emailer "github.com/nilslice/email"
@@ -703,13 +703,13 @@ will remain as-is.
 
 
 Thank you,
-Ponzu CMS at %s
+kudzu CMS at %s
 
 `, email, domain, key, domain)
 
 		msg := emailer.Message{
 			To:      email,
-			From:    fmt.Sprintf("ponzu@%s", domain),
+			From:    fmt.Sprintf("kudzu@%s", domain),
 			Subject: fmt.Sprintf("Account Recovery [%s]", domain),
 			Body:    body,
 		}
@@ -908,7 +908,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 						<div class="row">
 							<div class="card-title col s7">Uploaded Items</div>
 							<div class="col s5 input-field inline">
-								<select class="browser-default __ponzu sort-order">
+								<select class="browser-default __kudzu sort-order">
 									<option value="DESC">New to Old</option>
 									<option value="ASC">Old to New</option>
 								</select>
@@ -916,7 +916,7 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 							</div>
 							<script>
 								$(function() {
-									var sort = $('select.__ponzu.sort-order');
+									var sort = $('select.__kudzu.sort-order');
 
 									sort.on('change', function() {
 										var path = window.location.pathname;
@@ -1066,9 +1066,9 @@ func uploadContentsHandler(res http.ResponseWriter, req *http.Request) {
 	script := `
 	<script>
 		$(function() {
-			var del = $('.quick-delete-post.__ponzu span');
+			var del = $('.quick-delete-post.__kudzu span');
 			del.on('click', function(e) {
-				if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
+				if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
 					$(e.target).parent().submit();
 				}
 			});
@@ -1205,7 +1205,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 						<div class="row">
 							<div class="card-title col s7">` + t + ` Items</div>
 							<div class="col s5 input-field inline">
-								<select class="browser-default __ponzu sort-order">
+								<select class="browser-default __kudzu sort-order">
 									<option value="DESC">New to Old</option>
 									<option value="ASC">Old to New</option>
 								</select>
@@ -1213,7 +1213,7 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 							</div>
 							<script>
 								$(function() {
-									var sort = $('select.__ponzu.sort-order');
+									var sort = $('select.__kudzu.sort-order');
 
 									sort.on('change', function() {
 										var path = window.location.pathname;
@@ -1485,9 +1485,9 @@ func contentsHandler(res http.ResponseWriter, req *http.Request) {
 	script := `
 	<script>
 		$(function() {
-			var del = $('.quick-delete-post.__ponzu span');
+			var del = $('.quick-delete-post.__kudzu span');
 			del.on('click', function(e) {
-				if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
+				if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
 					$(e.target).parent().submit();
 				}
 			});
@@ -1573,7 +1573,7 @@ func adminPostListItem(e editor.Editable, typeName, status string) []byte {
 				<span class="post-detail">Updated: ` + updatedTime + `</span>
 				<span class="publish-date right">` + publishTime + `</span>
 
-				<form enctype="multipart/form-data" class="quick-delete-post __ponzu right" action="` + action + `" method="post">
+				<form enctype="multipart/form-data" class="quick-delete-post __kudzu right" action="` + action + `" method="post">
 					<span>Delete</span>
 					<input type="hidden" name="id" value="` + cid + `" />
 					<input type="hidden" name="type" value="` + typeName + status + `" />
@@ -2573,9 +2573,9 @@ func searchHandler(res http.ResponseWriter, req *http.Request) {
 	script := `
 	<script>
 		$(function() {
-			var del = $('.quick-delete-post.__ponzu span');
+			var del = $('.quick-delete-post.__kudzu span');
 			del.on('click', function(e) {
-				if (confirm("[Ponzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
+				if (confirm("[kudzu] Please confirm:\n\nAre you sure you want to delete this post?\nThis cannot be undone.")) {
 					$(e.target).parent().submit();
 				}
 			});
@@ -3148,7 +3148,7 @@ func adminAddonListItem(data []byte) []byte {
 					</div>
 
 					<div class="col s3">
-						<form enctype="multipart/form-data" class="quick-` + strings.ToLower(action) + `-addon __ponzu right" action="/admin/addons" method="post">
+						<form enctype="multipart/form-data" class="quick-` + strings.ToLower(action) + `-addon __kudzu right" action="/admin/addons" method="post">
 							<button class="btn waves-effect waves-effect-light ` + buttonClass + `">` + action + `</button>
 							<input type="hidden" name="id" value="` + id + `" />
 							<input type="hidden" name="action" value="` + action + `" />

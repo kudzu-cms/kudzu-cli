@@ -1,26 +1,26 @@
-title: Deploying Ponzu on Linux with System-V style init
+title: Deploying kudzu on Linux with System-V style init
 
-For reference, here is an example init script to run Ponzu servers. You must 
+For reference, here is an example init script to run kudzu servers. You must
 define the `PROJECT_DIR` & `RUNAS` variables by replacing `<PROJECT DIRECTORY>`
 & `<USER>` in the script below:
 
 ```bash
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          ponzu-server
+# Provides:          kudzu-server
 # Required-Start:    $local_fs $network $named $time $syslog
 # Required-Stop:     $local_fs $network $named $time $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Description:       Ponzu API & Admin server
+# Description:       kudzu API & Admin server
 ### END INIT INFO
 
 PROJECT_DIR=<PROJECT DIRECTORY>
-SCRIPT='cd $PROJECT_DIR && ponzu run --port=80' # add --https here to get TLS/HTTPS
+SCRIPT='cd $PROJECT_DIR && kudzu run --port=80' # add --https here to get TLS/HTTPS
 RUNAS=<USER>
 
-PIDFILE=/var/run/ponzu-server.pid
-LOGFILE=/var/log/ponzu-server.log
+PIDFILE=/var/run/kudzu-server.pid
+LOGFILE=/var/log/kudzu-server.log
 
 start() {
   if [ -f /var/run/$PIDNAME ] && kill -0 $(cat /var/run/$PIDNAME); then

@@ -25,8 +25,8 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use: "ponzu",
-	Long: `Ponzu is an open-source HTTP server framework and CMS, released under
+	Use: "kudzu",
+	Long: `kudzu is an open-source HTTP server framework and CMS, released under
 the BSD-3-Clause license.
 (c) 2016 - ` + year + ` Boss Sauce Creative, LLC`,
 }

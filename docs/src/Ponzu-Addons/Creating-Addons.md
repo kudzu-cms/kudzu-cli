@@ -1,4 +1,4 @@
-title: How to create Ponzu Addons
+title: How to create kudzu Addons
 
 # Coming soon
 

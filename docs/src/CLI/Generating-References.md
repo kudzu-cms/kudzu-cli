@@ -1,7 +1,7 @@
-title: How to Generate References using Ponzu CLI
+title: How to Generate References using kudzu CLI
 
-In Ponzu, users make connections between Content types using references. In order 
-to use the CLI to generate these references, a slightly different syntax is required. 
+In kudzu, users make connections between Content types using references. In order
+to use the CLI to generate these references, a slightly different syntax is required.
 In all cases, the Content type you wish to reference does not need to exist prior
 to the "parent" type referencing it at generate-time, but in the following examples,
 the referenced "child" type will be shown before the parent type for clarity.
@@ -10,15 +10,15 @@ the referenced "child" type will be shown before the parent type for clarity.
 
 ### @
 
-The **@** symbol is used to declare that the following name is a reference. The 
-CLI will take care to parse the name and treat it as a Content type to which the 
+The **@** symbol is used to declare that the following name is a reference. The
+CLI will take care to parse the name and treat it as a Content type to which the
 current type refers.
 
 ### []
 
-The `[]`, which if used, is always in front of the **@** symbol. It signifies 
+The `[]`, which if used, is always in front of the **@** symbol. It signifies
 that the reference type is a slice or a collection of references. When `[]`
-is used, the CLI will automatically generate a `reference.SelectRepeater()` view 
+is used, the CLI will automatically generate a `reference.SelectRepeater()` view
 for you.
 
 ### ,arg1,arg2,argN
@@ -29,8 +29,8 @@ editor. References are included in the parent types editor as a dropdown menu, w
 each possible reference as an option. These arguments define what goes inside the
 `<option></option>` text node, as would be seen by an Admin.
 
-The arguments must be valid JSON struct tag names from the reference type's fields. 
-Notice in the example below, the `title` and `price` are formatted exactly as they 
+The arguments must be valid JSON struct tag names from the reference type's fields.
+Notice in the example below, the `title` and `price` are formatted exactly as they
 were in the generate command for the `product` type.
 
 ---
@@ -39,8 +39,8 @@ were in the generate command for the `product` type.
 ##### Example
 
 ```bash
-$ ponzu gen content product title:string price:int description:string:textarea
-$ ponzu gen content catalog year:int products:"[]@product",title,price
+$ kudzu gen content product title:string price:int description:string:textarea
+$ kudzu gen content catalog year:int products:"[]@product",title,price
 ```
 
 The commands above output the following. For demonstration, we will omit the full
@@ -70,8 +70,8 @@ import (
 
 	"github.com/bosssauce/reference"
 
-	"github.com/ponzu-cms/ponzu/management/editor"
-	"github.com/ponzu-cms/ponzu/system/item"
+	"github.com/kudzu-cms/kudzu/management/editor"
+	"github.com/kudzu-cms/kudzu/system/item"
 )
 
 type Catalog struct {
@@ -79,7 +79,7 @@ type Catalog struct {
 
 	Year     int      `json:"year"`
     // all references are stored as []string or string types
-	Products []string `json:"products"` 
+	Products []string `json:"products"`
 }
 
 func (c *Catalog) MarshalEditor() ([]byte, error) {
@@ -119,5 +119,5 @@ If the reference should be only a single item, rather than a slice (or collectio
 of items, omit the `[]`, changing the command to:
 
 ```bash
-$ ponzu gen content catalog year:int product:@product,title,price
+$ kudzu gen content catalog year:int product:@product,title,price
 ```

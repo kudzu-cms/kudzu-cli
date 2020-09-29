@@ -1,12 +1,12 @@
 // Package system contains a collection of packages that make up the internal
-// Ponzu system, which handles addons, administration, the Admin server, the API
+// kudzu system, which handles addons, administration, the Admin server, the API
 // server, analytics, databases, search, TLS, and various internal types.
 package system
 
 import (
 	"net/http"
 
-	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/kudzu-cms/kudzu/system/db"
 )
 
 // BasicAuth adds HTTP Basic Auth check for requests that should implement it

@@ -1,9 +1,9 @@
 title: Content HTTP API
 
 
-Ponzu provides a read & write HTTP API to access and interact with content on a
-system. By default, write access (including create, update and delete) and search 
-are disabled. See the section on Ponzu's [API Interfaces](/Interfaces/API) to learn
+kudzu provides a read & write HTTP API to access and interact with content on a
+system. By default, write access (including create, update and delete) and search
+are disabled. See the section on kudzu's [API Interfaces](/Interfaces/API) to learn
 more about how to enable these endpoints.
 
 ---
@@ -90,8 +90,8 @@ more about how to enable these endpoints.
 <kbd>POST</kbd> `/api/content/create?type=<Type>`
 
   - Type must implement [`api.Createable`](/Interfaces/API#apicreateable) interface
-!!! note "Request Data Encoding" 
-    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request` 
+!!! note "Request Data Encoding"
+    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request`
     Response will be returned.
 
 ##### Sample Response
@@ -113,10 +113,10 @@ more about how to enable these endpoints.
 <kbd>POST</kbd> `/api/content/update?type=<Type>&id=<id>`
 
   - Type must implement [`api.Updateable`](/Interfaces/API#apiupdateable) interface
-!!! note "Request Data Encoding" 
-    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request` 
+!!! note "Request Data Encoding"
+    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request`
     Response will be returned.
-  
+
 ##### Sample Response
 ```javascript
 {
@@ -136,8 +136,8 @@ more about how to enable these endpoints.
 <kbd>POST</kbd> `/api/content/delete?type=<Type>&id=<id>`
 
   - Type must implement [`api.Deleteable`](/Interfaces/API#apideleteable) interface
-!!! note "Request Data Encoding" 
-    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request` 
+!!! note "Request Data Encoding"
+    Request must be `multipart/form-data` encoded. If not, a `400 Bad Request`
     Response will be returned.
 
 ##### Sample Response
@@ -160,7 +160,7 @@ more about how to enable these endpoints.
 All API endpoints are CORS-enabled (can be disabled in configuration at run-time) and API requests are recorded by your system to generate graphs of total requests and unique client requests within the Admin dashboard.
 
 #### Response Headers
-The following headers are common across all Ponzu API responses. Some of them can be modified
+The following headers are common across all kudzu API responses. Some of them can be modified
 in the [system configuration](/System-Configuration/Settings) while your system is running.
 
 ##### HTTP/1.1
@@ -193,4 +193,4 @@ vary: Accept-Encoding
 
 #### Helpful links
 [Typewriter](https://github.com/natdm/typewriter)
-Generate & sync front-end data structures from Ponzu content types. ([Ponzu example](https://github.com/natdm/typewriter/blob/master/EXAMPLES.md#example-use-in-a-package-like-ponzu))
+Generate & sync front-end data structures from kudzu content types. ([kudzu example](https://github.com/natdm/typewriter/blob/master/EXAMPLES.md#example-use-in-a-package-like-kudzu))

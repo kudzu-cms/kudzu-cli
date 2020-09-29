@@ -1,4 +1,4 @@
-cmd/ponzu/vendor/* linguist-vendored=false
+cmd/kudzu/vendor/* linguist-vendored=false
 system/admin/static/dashboard/js/* linguist-vendored
 system/admin/static/dashboard/css/* linguist-vendored
 system/admin/static/dashboard/fonts/* linguist-vendored

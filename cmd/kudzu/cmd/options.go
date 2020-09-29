@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var ponzuRepo = []string{"github.com", "bobbygryzynger", "ponzu"}
+var kudzuRepo = []string{"github.com", "bobbygryzynger", "kudzu"}
 
 func getAnswer() (string, error) {
 	var answer string
@@ -27,7 +27,7 @@ func getAnswer() (string, error) {
 }
 
 func vendorCorePackages(path string) error {
-	vendorPath := filepath.Join(path, "cmd", "ponzu", "vendor", "github.com", "bobbygryzynger", "ponzu")
+	vendorPath := filepath.Join(path, "cmd", "kudzu", "vendor", "github.com", "bobbygryzynger", "kudzu")
 	err := os.MkdirAll(vendorPath, os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err
@@ -82,7 +82,7 @@ func copyAll(src, dst string) error {
 
 		sep := string(filepath.Separator)
 
-		// base == the ponzu project dir + string(filepath.Separator)
+		// base == the kudzu project dir + string(filepath.Separator)
 		parts := strings.Split(src, sep)
 		base := strings.Join(parts[:len(parts)-1], sep)
 		base += sep

@@ -7,12 +7,12 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/bobbygryzynger/ponzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/cfg"
 
-	"github.com/bobbygryzynger/ponzu/system"
-	"github.com/bobbygryzynger/ponzu/system/admin/user"
-	"github.com/bobbygryzynger/ponzu/system/api"
-	"github.com/bobbygryzynger/ponzu/system/db"
+	"github.com/kudzu-cms/kudzu/system"
+	"github.com/kudzu-cms/kudzu/system/admin/user"
+	"github.com/kudzu-cms/kudzu/system/api"
+	"github.com/kudzu-cms/kudzu/system/db"
 )
 
 // Run adds Handlers to default http listener for Admin

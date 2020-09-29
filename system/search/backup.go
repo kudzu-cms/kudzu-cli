@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/bobbygryzynger/ponzu/system/backup"
-	"github.com/bobbygryzynger/ponzu/system/cfg"
+	"github.com/kudzu-cms/kudzu/system/backup"
+	"github.com/kudzu-cms/kudzu/system/cfg"
 )
 
 // Backup creates an archive of a project's search index and writes it

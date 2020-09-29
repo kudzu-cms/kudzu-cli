@@ -2,32 +2,32 @@
 
 # Set up test environment
 
-set -ex 
+set -ex
 
-# Install Ponzu CMS
-go get -u github.com/ponzu-cms/ponzu/...
+# Install kudzu CMS
+go get -u github.com/kudzu-cms/kudzu/...
 
 # test install
-ponzu
+kudzu
 
 # create a project and generate code
-if [ $CIRCLE_BRANCH = "ponzu-dev" ]; then
-        # ensure we have the latest from ponzu-dev branch
-        cd /go/src/github.com/ponzu-cms/ponzu
-        git checkout ponzu-dev
-        git pull origin ponzu-dev
+if [ $CIRCLE_BRANCH = "kudzu-dev" ]; then
+        # ensure we have the latest from kudzu-dev branch
+        cd /go/src/github.com/kudzu-cms/kudzu
+        git checkout kudzu-dev
+        git pull origin kudzu-dev
 
-        # create new project using the ponzu-dev branch
-        ponzu new --dev github.com/ponzu-cms/ci/test-project
-else 
-        ponzu new github.com/ponzu-cms/ci/test-project
+        # create new project using the kudzu-dev branch
+        kudzu new --dev github.com/kudzu-cms/ci/test-project
+else
+        kudzu new github.com/kudzu-cms/ci/test-project
 fi
 
-cd /go/src/github.com/ponzu-cms/ci/test-project
+cd /go/src/github.com/kudzu-cms/ci/test-project
 
-ponzu gen content person name:string hashed_secret:string
-ponzu gen content message from:@person,hashed_secret to:@person,hashed_secret
+kudzu gen content person name:string hashed_secret:string
+kudzu gen content message from:@person,hashed_secret to:@person,hashed_secret
 
 # build and run dev http/2 server with TLS
-ponzu build
+kudzu build
 

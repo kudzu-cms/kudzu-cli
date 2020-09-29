@@ -1,22 +1,22 @@
 title: Editor Package Interfaces
 
-Ponzu provides a set of interfaces from the `management/editor` package which 
-extend the system's functionality and determine how content editors are rendered 
+kudzu provides a set of interfaces from the `management/editor` package which
+extend the system's functionality and determine how content editors are rendered
 within the CMS.
 
 ---
 
 ## Interfaces
 
-### [editor.Editable](https://godoc.org/github.com/ponzu-cms/ponzu/management/editor#Editable)
+### [editor.Editable](https://godoc.org/github.com/kudzu-cms/kudzu/management/editor#Editable)
 
-Editable determines what `[]bytes` are rendered inside the editor page. Use 
-Edtiable on anything inside your CMS that you want to provide configuration, editable 
+Editable determines what `[]bytes` are rendered inside the editor page. Use
+Edtiable on anything inside your CMS that you want to provide configuration, editable
 fields, or any HTML/markup to display to an end-user.
 
 !!! note "Implementing `editor.Editable`"
-    Most of the time, Ponzu developers generate the majority of this code using 
-    the Ponzu CLI [`generate` command](/CLI/Usage).
+    Most of the time, kudzu developers generate the majority of this code using
+    the kudzu CLI [`generate` command](/CLI/Usage).
 
 ##### Method Set
 
@@ -31,8 +31,8 @@ type Editable interface {
 ```go
 func (p *Post) MarshalEditor() ([]byte, error) {
     // The editor.Form func sets up a structured UI with default styles and form
-    // elements based on the fields provided. Most often, Ponzu developers will
-    // have the `$ ponzu generate` command generate the MarshalEditor func and 
+    // elements based on the fields provided. Most often, kudzu developers will
+    // have the `$ kudzu generate` command generate the MarshalEditor func and
     // its internal form fields
     view, err := editor.Form(p,
 		editor.Field{
@@ -51,7 +51,7 @@ func (p *Post) MarshalEditor() ([]byte, error) {
 
 ---
 
-### [editor.Mergeable](https://godoc.org/github.com/ponzu-cms/ponzu/management/editor#Mergeable)
+### [editor.Mergeable](https://godoc.org/github.com/kudzu-cms/kudzu/management/editor#Mergeable)
 
 Mergable enables a CMS end-user to merge the "Pending" content from an outside source into the "Public" section, and thus making it visible via the public content API. It also allows the end-user to reject content. "Approve" and "Reject" buttons will be visible on the edit page for content submitted.
 
