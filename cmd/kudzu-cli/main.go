@@ -4,9 +4,7 @@
 // code for content types and other files, build kudzu binaries and run servers.
 package main
 
-import (
-	"github.com/kudzu-cms/kudzu-cli/cmd/kudzu/cmd"
-)
+import "github.com/kudzu-cms/kudzu-cli/cmd/kudzu-cli/cmd"
 
 func main() {
 	cmd.Execute()
