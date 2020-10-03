@@ -28,21 +28,16 @@ $ kudzu version --cli
 			os.Exit(1)
 		}
 
-		fmt.Fprintf(os.Stdout, "kudzu v%s\n", p["version"])
+		fmt.Fprintf(os.Stdout, "kudzu-cli %s\n", p["version"])
 	},
 }
 
 func version(isCLI bool) (map[string]interface{}, error) {
 	kv := make(map[string]interface{})
 
-	info := filepath.Join("cmd", "kudzu", "kudzu.json")
+	info := filepath.Join("cmd", "kudzu-cli", "kudzu.json")
 	if isCLI {
-		gopath, err := getGOPATH()
-		if err != nil {
-			return nil, err
-		}
-		repo := filepath.Join(gopath, "src", "github.com", "bobbygryzynger", "kudzu")
-		info = filepath.Join(repo, "cmd", "kudzu", "kudzu.json")
+		info = filepath.Join("cmd", "kudzu", "kudzu.json")
 	}
 
 	b, err := ioutil.ReadFile(info)
