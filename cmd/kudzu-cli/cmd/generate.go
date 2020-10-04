@@ -273,7 +273,7 @@ func setFieldView(field *generateField, viewType string) error {
 			delim = [2]string{"{{", "}}"}
 		}
 
-		tmplStr, err := getTemplate(filename)
+		tmplStr, err := getTemplateFromRepo(filename)
 		if err != nil {
 			return template.New(filename), err
 		}
@@ -382,7 +382,7 @@ func generateContentType(args []string) error {
 		return fmt.Errorf("Failed to parse type args: %s", err.Error())
 	}
 
-	tmplStr, err := getTemplate("gen-content.tmpl")
+	tmplStr, err := getTemplateFromRepo("gen-content.tmpl")
 	if err != nil {
 		return err
 	}

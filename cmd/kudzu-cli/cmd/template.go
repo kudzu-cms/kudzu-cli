@@ -6,7 +6,10 @@ import (
 	"net/http"
 )
 
-func getTemplate(name string) (string, error) {
+// Retrieves the given template from the remote repo for the running version of
+// the CLI.
+// @todo Consider setting up a local cache under ~/.kudzu/<version>/templates
+func getTemplateFromRepo(name string) (string, error) {
 
 	remoteTmpl := "https://raw.githubusercontent.com/kudzu-cms/kudzu-cli/" + Version + "/cmd/kudzu-cli/templates/" + name
 	resp, err := http.Get(remoteTmpl)

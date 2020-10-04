@@ -54,7 +54,7 @@ func createProjectInDir(path string, modname string) error {
 		return err
 	}
 
-	tmplStr, err := getTemplate("gen-new-project-main.tmpl")
+	tmplStr, err := getTemplateFromRepo("gen-new-project-main.tmpl")
 	if err != nil {
 		return err
 	}
