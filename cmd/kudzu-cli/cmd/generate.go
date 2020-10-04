@@ -361,15 +361,15 @@ func generateContentType(args []string) error {
 	name := args[0]
 	fileName := strings.ToLower(name) + ".go"
 
-	// open file in ./content/ dir
+	// open file in ./plugins/ dir
 	// if exists, alert user of conflict
 	pwd, err := os.Getwd()
 	if err != nil {
 		return err
 	}
 
-	contentDir := filepath.Join(pwd, "content")
-	filePath := filepath.Join(contentDir, fileName)
+	pluginsDir := filepath.Join(pwd, "plugins")
+	filePath := filepath.Join(pluginsDir, fileName)
 
 	if _, err := os.Stat(filePath); !os.IsNotExist(err) {
 		localFile := filepath.Join("content", fileName)

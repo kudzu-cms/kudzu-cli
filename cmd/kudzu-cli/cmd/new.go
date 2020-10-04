@@ -36,7 +36,7 @@ func createProjectInDir(path string, modname string) error {
 
 	// @todo if an error occurs during project creation, clean up the project
 	// directory
-	err = os.MkdirAll(filepath.Join(path, "content"), os.ModeDir|os.ModePerm)
+	err = os.MkdirAll(filepath.Join(path, "plugins"), os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err
 	}
@@ -60,6 +60,22 @@ func createProjectInDir(path string, modname string) error {
 	}
 
 	_, err = file.WriteString(tmplStr)
+	if err != nil {
+		return err
+	}
+
+	ignoreFile, err := os.Create(filepath.Join(path, ".gitignore"))
+	defer ignoreFile.Close()
+	if err != nil {
+		return err
+	}
+
+	tmplStr, err = getTemplateFromRepo("gen-new-project-gitignore.tmpl")
+	if err != nil {
+		return err
+	}
+
+	_, err = ignoreFile.WriteString(tmplStr)
 	if err != nil {
 		return err
 	}
