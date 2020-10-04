@@ -75,7 +75,7 @@ func createProjectInDir(path string, modname string) error {
 		return err
 	}
 
-	_, err = file.WriteString(tmplStr)
+	_, err = ignoreFile.WriteString(tmplStr)
 	if err != nil {
 		return err
 	}
