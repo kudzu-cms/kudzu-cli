@@ -268,18 +268,16 @@ func setFieldView(field *generateField, viewType string) error {
 	var tmpl *template.Template
 	buf := &bytes.Buffer{}
 
-	pwd, err := os.Getwd()
-	if err != nil {
-		return err
-	}
-
-	tmplDir := filepath.Join(pwd, "cmd", "kudzu", "templates")
 	tmplFromWithDelims := func(filename string, delim [2]string) (*template.Template, error) {
 		if delim[0] == "" || delim[1] == "" {
 			delim = [2]string{"{{", "}}"}
 		}
 
-		return template.New(filename).Delims(delim[0], delim[1]).ParseFiles(filepath.Join(tmplDir, filename))
+		tmplStr, err := getTemplateFromRepo(filename)
+		if err != nil {
+			return template.New(filename), err
+		}
+		return template.New(filename).Delims(delim[0], delim[1]).Parse(tmplStr)
 	}
 
 	viewType = optimizeFieldView(field, viewType)
@@ -384,8 +382,12 @@ func generateContentType(args []string) error {
 		return fmt.Errorf("Failed to parse type args: %s", err.Error())
 	}
 
-	tmplPath := filepath.Join(pwd, "cmd", "kudzu", "templates", "gen-content.tmpl")
-	tmpl, err := template.ParseFiles(tmplPath)
+	tmplStr, err := getTemplateFromRepo("gen-content.tmpl")
+	if err != nil {
+		return err
+	}
+
+	tmpl, err := template.New("gen-content.tmpl").Delims("{{", "}}").Parse(tmplStr)
 	if err != nil {
 		return fmt.Errorf("Failed to parse template: %s", err.Error())
 	}
