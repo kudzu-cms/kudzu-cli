@@ -28,9 +28,8 @@ var (
 const Version = "master"
 
 var rootCmd = &cobra.Command{
-	Use: "kudzu",
-	Long: `kudzu is an open-source HTTP server framework and CMS, released under
-the BSD-3-Clause license.
+	Use: "kudzu-cli",
+	Long: `kudzu-cli is the command-line interface for interacting with Kudzu projects.
 (c) 2016 - ` + year + ` Boss Sauce Creative, LLC`,
 }
 
