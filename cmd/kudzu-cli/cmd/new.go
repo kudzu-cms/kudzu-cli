@@ -54,13 +54,13 @@ func createProjectInDir(path string) error {
 		return err
 	}
 
-	file, err := os.Create(path + "main.go")
+	file, err := os.Create(path + "/main.go")
 	defer file.Close()
 	if err != nil {
 		return err
 	}
 
-	tmplStr, err := getTemplate("gen-new-project-main.go")
+	tmplStr, err := getTemplate("gen-new-project-main.tmpl")
 	if err != nil {
 		return err
 	}
