@@ -4,45 +4,39 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
 
 var newCmd = &cobra.Command{
-	Use:   "new [flags] <project name>",
-	Short: "creates a project directory of the name supplied as a parameter",
-	Long: `Creates a project directory of the name supplied as a parameter
-immediately following the 'new' option in the $GOPATH/src directory. Note:
-'new' depends on the program 'git' and possibly a network connection. If
-there is no local repository to clone from at the local machine's $GOPATH,
-'new' will attempt to clone the 'github.com/kudzu-cms/kudzu' package from
-over the network.`,
-	Example: `$ kudzu new github.com/nilslice/proj
-> New kudzu project created at $GOPATH/src/github.com/nilslice/proj`,
+	Use:     "new <path> <module name>",
+	Short:   "creates a project directory of the name supplied as a parameter",
+	Example: `$ kudzu new ~/Code/go/kudzu-project github.com/bobbygryzynger/kudzu-project`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		projectName := "kudzu-project"
 		path := ""
+		modname := ""
 		if len(args) == 2 {
-			projectName = args[0]
-			path = args[1]
+			path = args[0]
+			modname = args[1]
 		} else {
-			msg := "Please provide a project name and path."
-			msg += "\nThis will create a directory within your $GOPATH/src."
+			msg := "Please provide a path and module name"
 			return fmt.Errorf("%s", msg)
 		}
-		return newProjectInDir(projectName, path)
+		return createProjectInDir(path, modname)
 	},
 }
 
-func newProjectInDir(name string, path string) error {
-	projPath := path + "/" + name
-	return createProjectInDir(projPath)
-}
+func createProjectInDir(path string, modname string) error {
 
-func createProjectInDir(path string) error {
+	_, err := os.Stat(path)
+	if !os.IsNotExist(err) {
+		return fmt.Errorf("The path %s already exists", path)
+	}
 
-	// create the directory or overwrite it
-	err := os.MkdirAll(path+"/content", os.ModeDir|os.ModePerm)
+	// @todo if an error occurs during project creation, clean up the project
+	// directory
+	err = os.MkdirAll(filepath.Join(path, "content"), os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err
 	}
@@ -54,7 +48,7 @@ func createProjectInDir(path string) error {
 		return err
 	}
 
-	file, err := os.Create(path + "/main.go")
+	file, err := os.Create(filepath.Join(path, "main.go"))
 	defer file.Close()
 	if err != nil {
 		return err
@@ -70,7 +64,7 @@ func createProjectInDir(path string) error {
 		return err
 	}
 
-	cmd = exec.Command("go", "mod", "init", "kudzu-project")
+	cmd = exec.Command("go", "mod", "init", modname)
 	cmd.Dir = path
 	err = cmd.Run()
 	if err != nil {
@@ -89,8 +83,5 @@ func createProjectInDir(path string) error {
 }
 
 func init() {
-	newCmd.Flags().StringVar(&fork, "fork", "", "modify repo source for kudzu core development")
-	newCmd.Flags().BoolVar(&dev, "dev", false, "modify environment for kudzu core development")
-
 	rootCmd.AddCommand(newCmd)
 }
