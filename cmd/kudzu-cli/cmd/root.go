@@ -24,6 +24,9 @@ var (
 	year = fmt.Sprintf("%d", time.Now().Year())
 )
 
+// Version is the kudzu-cli version.
+const Version = "master"
+
 var rootCmd = &cobra.Command{
 	Use: "kudzu",
 	Long: `kudzu is an open-source HTTP server framework and CMS, released under

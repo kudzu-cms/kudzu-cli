@@ -21,14 +21,16 @@ over the network.`,
 > New kudzu project created at $GOPATH/src/github.com/nilslice/proj`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		projectName := "kudzu-project"
-		if len(args) > 0 {
+		path := ""
+		if len(args) == 2 {
 			projectName = args[0]
+			path = args[1]
 		} else {
-			msg := "Please provide a project name."
+			msg := "Please provide a project name and path."
 			msg += "\nThis will create a directory within your $GOPATH/src."
 			return fmt.Errorf("%s", msg)
 		}
-		return newProjectInDir(projectName, args[1])
+		return newProjectInDir(projectName, path)
 	},
 }
 
@@ -40,22 +42,47 @@ func newProjectInDir(name string, path string) error {
 func createProjectInDir(path string) error {
 
 	// create the directory or overwrite it
-	err := os.MkdirAll(path, os.ModeDir|os.ModePerm)
+	err := os.MkdirAll(path+"/content", os.ModeDir|os.ModePerm)
 	if err != nil {
 		return err
 	}
 
-	cmd := exec.Command("kudzu-cli", "gen", "page", "title:\"string\"")
+	cmd := exec.Command("kudzu-cli", "gen", "content", "page", "title:string")
 	cmd.Dir = path
-	cmd.Run()
+	err = cmd.Run()
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(path + "main.go")
+	defer file.Close()
+	if err != nil {
+		return err
+	}
+
+	tmplStr, err := getTemplate("gen-new-project-main.go")
+	if err != nil {
+		return err
+	}
+
+	_, err = file.WriteString(tmplStr)
+	if err != nil {
+		return err
+	}
 
 	cmd = exec.Command("go", "mod", "init", "kudzu-project")
 	cmd.Dir = path
-	cmd.Run()
+	err = cmd.Run()
+	if err != nil {
+		return err
+	}
 
-	cmd = exec.Command("go", "mod", "tidy", "kudzu-project")
+	cmd = exec.Command("go", "mod", "tidy")
 	cmd.Dir = path
-	cmd.Run()
+	err = cmd.Run()
+	if err != nil {
+		return err
+	}
 
 	fmt.Println("New kudzu project created at", path)
 	return nil
