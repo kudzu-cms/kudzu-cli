@@ -438,7 +438,7 @@ The generate command will intelligently parse more sophisticated field names
 such as 'field_name' and convert it to 'FieldName' and vice versa, only where
 appropriate as per common Go idioms. Errors will be reported, but successful
 generate commands return nothing.`,
-	Example: `$ kudzu gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
+	Example: `$ kudzu-cli gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
 }
 
 var contentCmd = &cobra.Command{

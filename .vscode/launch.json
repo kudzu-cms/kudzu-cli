@@ -9,7 +9,7 @@
       "program": "${workspaceRoot}/cmd/kudzu-cli",
       "cwd": "${workspaceRoot}",
       "env": {},
-      "args": ["build"]
+      "args": ["version"]
     }
   ]
 }
