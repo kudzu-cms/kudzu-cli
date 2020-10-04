@@ -10,7 +10,7 @@ import (
 var versionCmd = &cobra.Command{
 	Use:     "version",
 	Aliases: []string{"v"},
-	Short:   "Prints the version of kudzu-cli your project is using.",
+	Short:   "prints kudzu-cli version",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Fprintf(os.Stdout, "kudzu-cli %s\n", Version)
 	},
