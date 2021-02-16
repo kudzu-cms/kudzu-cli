@@ -64,6 +64,22 @@ func createProjectInDir(path string, modname string) error {
 		return err
 	}
 
+	file, err = os.Create(filepath.Join(path, "README.md"))
+	defer file.Close()
+	if err != nil {
+		return err
+	}
+
+	readmeStr, err := getTemplateFromRepo("gen-new-project-readme.tmpl")
+	if err != nil {
+		return err
+	}
+
+	_, err = file.WriteString(readmeStr)
+	if err != nil {
+		return err
+	}
+
 	ignoreFile, err := os.Create(filepath.Join(path, ".gitignore"))
 	defer ignoreFile.Close()
 	if err != nil {
