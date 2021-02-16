@@ -103,6 +103,13 @@ func createProjectInDir(path string, modname string) error {
 		return err
 	}
 
+	cmd = exec.Command("go", "mod", "edit", "-go=1.18")
+	cmd.Dir = path
+	err = cmd.Run()
+	if err != nil {
+		return err
+	}
+
 	cmd = exec.Command("go", "mod", "tidy")
 	cmd.Dir = path
 	err = cmd.Run()
