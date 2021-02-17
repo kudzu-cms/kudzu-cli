@@ -372,7 +372,7 @@ func generateContentType(args []string) error {
 	filePath := filepath.Join(pluginsDir, fileName)
 
 	if _, err := os.Stat(filePath); !os.IsNotExist(err) {
-		localFile := filepath.Join("content", fileName)
+		localFile := filepath.Join("plugins", fileName)
 		return fmt.Errorf("Please remove '%s' before executing this command", localFile)
 	}
 
@@ -420,6 +420,7 @@ func generateContentType(args []string) error {
 
 var generateCmd = &cobra.Command{
 	Use:     "generate <generator type (,...fields)>",
+	Args:    cobra.ExactArgs(1),
 	Aliases: []string{"gen", "g"},
 	Short:   "generate boilerplate code for various kudzu components",
 	Long: `Generate boilerplate code for various kudzu components, such as 'content'.
@@ -443,6 +444,7 @@ generate commands return nothing.`,
 
 var contentCmd = &cobra.Command{
 	Use:     "content <namespace> <field> <field>...",
+	Args:    cobra.MinimumNArgs(2),
 	Aliases: []string{"c"},
 	Short:   "generates a new content type",
 	RunE: func(cmd *cobra.Command, args []string) error {

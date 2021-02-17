@@ -11,7 +11,6 @@ type {{ .Name }} struct {
     item.Item
 
     {{ range .Fields }}{{ .Name }} {{ .TypeName }} `json:"{{ .JSONName }}"`
-    {{ end }}
 }
 
 // MarshalEditor writes a buffer of html to edit a {{ .Name }} within the CMS
@@ -24,7 +23,6 @@ func ({{ .Initial }} *{{ .Name }}) MarshalEditor() ([]byte, error) {
         {{ range .Fields }}editor.Field{
 			{{ .View }}
 		},
-		{{ end }}
 	)
 
 	if err != nil {
