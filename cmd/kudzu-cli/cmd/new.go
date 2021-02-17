@@ -11,7 +11,8 @@ import (
 
 var newCmd = &cobra.Command{
 	Use:     "new <path> <module name>",
-	Short:   "creates a new kudzu project",
+	Args:    cobra.ExactArgs(2),
+	Short:   "Creates a new kudzu project",
 	Example: `$ kudzu new ~/Code/go/kudzu-project github.com/bobbygryzynger/kudzu-project`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		path := ""

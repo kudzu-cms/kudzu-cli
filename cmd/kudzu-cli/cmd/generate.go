@@ -372,7 +372,7 @@ func generateContentType(args []string) error {
 	filePath := filepath.Join(pluginsDir, fileName)
 
 	if _, err := os.Stat(filePath); !os.IsNotExist(err) {
-		localFile := filepath.Join("content", fileName)
+		localFile := filepath.Join("plugins", fileName)
 		return fmt.Errorf("Please remove '%s' before executing this command", localFile)
 	}
 
@@ -420,9 +420,10 @@ func generateContentType(args []string) error {
 
 var generateCmd = &cobra.Command{
 	Use:     "generate <generator type (,...fields)>",
+	Args:    cobra.ExactArgs(1),
 	Aliases: []string{"gen", "g"},
-	Short:   "generate boilerplate code for various kudzu components",
-	Long: `Generate boilerplate code for various kudzu components, such as 'content'.
+	Short:   "Generates boilerplate code for components",
+	Long: `Generates boilerplate code for various kudzu components, such as 'content'.
 
 The command above will generate a file 'content/review.go' with boilerplate
 methods, as well as struct definition, and corresponding field tags like:
@@ -438,11 +439,12 @@ The generate command will intelligently parse more sophisticated field names
 such as 'field_name' and convert it to 'FieldName' and vice versa, only where
 appropriate as per common Go idioms. Errors will be reported, but successful
 generate commands return nothing.`,
-	Example: `$ kudzu-cli gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
+	Example: `$ kudzu-cli gen content review title:string body:string rating:int tags:[]string`,
 }
 
 var contentCmd = &cobra.Command{
 	Use:     "content <namespace> <field> <field>...",
+	Args:    cobra.MinimumNArgs(2),
 	Aliases: []string{"c"},
 	Short:   "generates a new content type",
 	RunE: func(cmd *cobra.Command, args []string) error {

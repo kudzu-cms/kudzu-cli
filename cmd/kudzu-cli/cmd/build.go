@@ -16,11 +16,15 @@ var (
 )
 
 var buildCmd = &cobra.Command{
-	Use: "build <component>",
+	Use:   "build <component>",
+	Args:  cobra.ExactArgs(1),
+	Short: "Builds components and plugins",
 }
 
 var buildPluginsCmd = &cobra.Command{
-	Use: "plugins [flags]",
+	Use:   "plugins [flags]",
+	Args:  cobra.NoArgs,
+	Short: "Builds content plugins",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		err := filepath.Walk(filepath.Join(".", "plugins"), func(path string, info os.FileInfo, err error) error {
 			if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {

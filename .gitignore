@@ -1,0 +1,3 @@
+# Don't track a user's local configuration files.
+/.vscode/*.json
+!/.vscode/*.dist.json
