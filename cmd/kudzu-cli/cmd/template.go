@@ -11,7 +11,9 @@ import (
 // @todo Consider setting up a local cache under ~/.kudzu/<version>/templates
 func getTemplateFromRepo(name string) (string, error) {
 
-	remoteTmpl := "https://raw.githubusercontent.com/kudzu-cms/kudzu-cli/" + Version + "/cmd/kudzu-cli/templates/" + name
+	repoBase := "https://raw.githubusercontent.com/kudzu-cms/kudzu-cli"
+	versionPath := Version + "/cmd/kudzu-cli/templates/" + name
+	remoteTmpl := repoBase + "/" + versionPath
 	resp, err := http.Get(remoteTmpl)
 	if err != nil {
 		return "", err
