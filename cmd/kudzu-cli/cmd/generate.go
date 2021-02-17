@@ -422,8 +422,8 @@ var generateCmd = &cobra.Command{
 	Use:     "generate <generator type (,...fields)>",
 	Args:    cobra.ExactArgs(1),
 	Aliases: []string{"gen", "g"},
-	Short:   "generate boilerplate code for various kudzu components",
-	Long: `Generate boilerplate code for various kudzu components, such as 'content'.
+	Short:   "Generates boilerplate code for components",
+	Long: `Generates boilerplate code for various kudzu components, such as 'content'.
 
 The command above will generate a file 'content/review.go' with boilerplate
 methods, as well as struct definition, and corresponding field tags like:
@@ -439,7 +439,7 @@ The generate command will intelligently parse more sophisticated field names
 such as 'field_name' and convert it to 'FieldName' and vice versa, only where
 appropriate as per common Go idioms. Errors will be reported, but successful
 generate commands return nothing.`,
-	Example: `$ kudzu-cli gen content review title:"string" body:"string" rating:"int" tags:"[]string"`,
+	Example: `$ kudzu-cli gen content review title:string body:string rating:int tags:[]string`,
 }
 
 var contentCmd = &cobra.Command{

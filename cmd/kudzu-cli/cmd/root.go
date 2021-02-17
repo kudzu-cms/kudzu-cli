@@ -7,7 +7,7 @@ import (
 )
 
 // Version is the kudzu-cli version.
-const Version = "fix-generate-commands"
+const Version = "master"
 
 var rootCmd = &cobra.Command{
 	Use:  "kudzu-cli",
