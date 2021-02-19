@@ -29,7 +29,7 @@ var buildPluginsCmd = &cobra.Command{
 		err := filepath.Walk(filepath.Join(".", "plugins"), func(path string, info os.FileInfo, err error) error {
 			if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
 
-				outPath := filepath.Join(".", ".plugins") + strings.TrimLeft(path, filepath.Join(".", "plugins"))
+				outPath := filepath.Join(".", "plugins") + strings.TrimLeft(path, filepath.Join(".", "plugins"))
 				outPath = strings.TrimRight(outPath, ".go") + ".so"
 
 				buildDir := strings.TrimRight(outPath, info.Name()+".so")
