@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
+	"runtime"
 
 	"github.com/spf13/cobra"
 )
@@ -26,39 +26,27 @@ var buildPluginsCmd = &cobra.Command{
 	Args:  cobra.NoArgs,
 	Short: "Builds content plugins",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		err := filepath.Walk(filepath.Join(".", "plugins"), func(path string, info os.FileInfo, err error) error {
-			if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
 
-				outPath := filepath.Join(".", ".plugins") + strings.TrimLeft(path, filepath.Join(".", "plugins"))
-				outPath = strings.TrimRight(outPath, ".go") + ".so"
-
-				buildDir := strings.TrimRight(outPath, info.Name()+".so")
-				_, err := os.Stat(buildDir)
-				if os.IsNotExist(err) {
-					err = os.MkdirAll(buildDir, os.ModeDir|os.ModePerm)
-					if err != nil {
-						return err
-					}
-				}
-
-				cmdArgs := []string{"build", "-buildmode=plugin"}
-				// Add debugging build flags.
-				// @see https://github.com/go-delve/delve/issues/865#issuecomment-480766102
-				if debug {
-					cmdArgs = append(cmdArgs, "-gcflags='all=-N -l'")
-				}
-				cmdArgs = append(cmdArgs, "-o", outPath, path)
-				soBuildCmd := exec.Command("go", cmdArgs...)
-				log.Println("Plugin: " + info.Name())
-				log.Println("\tBuilding: " + soBuildCmd.String())
-				err = soBuildCmd.Run()
-				if err != nil {
-					fmt.Println(err)
-					return err
-				}
-			}
+		info, statErr := os.Stat("plugins")
+		if os.IsNotExist(statErr) || !info.IsDir() {
+			log.Println("No Plugins to build")
 			return nil
-		})
+		}
+
+		info, statErr = os.Stat(".plugins")
+
+		cmdArgs := []string{info.Name()}
+		_, file, _, _ := runtime.Caller(0)
+		basepath := filepath.Dir(file)
+		soBuildCmd := exec.Command(filepath.Join(basepath, "..", "..", "..", "scripts", "build-plugins.sh"), cmdArgs...)
+		soBuildCmd.Dir = "./plugins"
+		output, err := soBuildCmd.Output()
+		if err != nil {
+			fmt.Println(string(output))
+			return err
+		}
+		log.Println(string(output))
+
 		return err
 	},
 }
