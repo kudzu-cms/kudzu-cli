@@ -1,15 +1,21 @@
 #!/bin/bash
+# Builds module plugins.
+#
+# $1: source directory
+# $2: source filename
+# $3: absolute output path and filename
+# $4: add debug flags
+#
+set -x
 
-# mapfile -d $'\0' array < <(find . -name *.go -print0) && echo "${array[*]}"
-# # Get file name: sed 's|.*/||'
-outputDir=$1
-echo $outputDir
-pwd
-ls -al
-ls -al other
-mapfile -d $'\0' gofiles < <(find . -name "*.go" -print0)
-for file in "${gofiles[@]}"
-do
-   echo $file
-done
-go build -buildmode=plugin -gcflags='all=-N -l' -o ../.plugins/page.so page.go
+flags=$([[ -z $4 ]] && echo "" || echo -gcflags='all=-N -l')
+
+echo -n "Building plugin $2..."
+cd $1
+if [[ -z "$flags" ]]
+then
+  go build -buildmode=plugin -o $3 $2
+else
+  go build -buildmode=plugin "$flags" -o $3 $2
+fi
+echo -n "done"

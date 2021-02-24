@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -33,19 +34,47 @@ var buildPluginsCmd = &cobra.Command{
 			return nil
 		}
 
+		// Clean previously compiled plugins.
 		info, statErr = os.Stat(".plugins")
-
-		cmdArgs := []string{info.Name()}
-		_, file, _, _ := runtime.Caller(0)
-		basepath := filepath.Dir(file)
-		soBuildCmd := exec.Command(filepath.Join(basepath, "..", "..", "..", "scripts", "build-plugins.sh"), cmdArgs...)
-		soBuildCmd.Dir = "./plugins"
-		output, err := soBuildCmd.Output()
-		if err != nil {
-			fmt.Println(string(output))
-			return err
+		if os.IsNotExist(statErr) && info.IsDir() {
+			os.RemoveAll(".plugins")
 		}
-		log.Println(string(output))
+
+		err := filepath.Walk(filepath.Join(".", "plugins"), func(path string, info os.FileInfo, err error) error {
+			if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
+
+				outPath := filepath.Join(".", ".plugins") + strings.TrimLeft(path, filepath.Join(".", "plugins"))
+				outPath = strings.TrimRight(outPath, ".go") + ".so"
+
+				buildDir := strings.TrimRight(outPath, info.Name()+".so")
+				_, err := os.Stat(buildDir)
+				if os.IsNotExist(err) {
+					err = os.MkdirAll(buildDir, os.ModeDir|os.ModePerm)
+					if err != nil {
+						return err
+					}
+				}
+
+				outpathAbs, _ := filepath.Abs(outPath)
+				sourcePathAbs, _ := filepath.Abs(path)
+				cmdArgs := []string{filepath.Dir(sourcePathAbs), info.Name(), outpathAbs}
+				if debug {
+					cmdArgs = append(cmdArgs, "true")
+				}
+				_, callerFile, _, _ := runtime.Caller(0)
+				callerBase := filepath.Dir(callerFile)
+				rootPath := filepath.Join(callerBase, "..", "..", "..")
+				soBuildCmd := exec.Command(filepath.Join(rootPath, "scripts", "build-plugins.sh"), cmdArgs...)
+				soBuildCmd.Dir = "./plugins"
+				output, err := soBuildCmd.CombinedOutput()
+				if err != nil {
+					fmt.Println(string(output))
+					return err
+				}
+				log.Println(string(output))
+			}
+			return nil
+		})
 
 		return err
 	},
