@@ -36,7 +36,7 @@ var buildPluginsCmd = &cobra.Command{
 
 		// Clean previously compiled plugins.
 		info, statErr = os.Stat(".plugins")
-		if os.IsNotExist(statErr) && info.IsDir() {
+		if !os.IsNotExist(statErr) && info.IsDir() {
 			os.RemoveAll(".plugins")
 		}
 
