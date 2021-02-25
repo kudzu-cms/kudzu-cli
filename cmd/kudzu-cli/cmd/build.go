@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -30,7 +29,7 @@ var buildPluginsCmd = &cobra.Command{
 
 		info, statErr := os.Stat("plugins")
 		if os.IsNotExist(statErr) || !info.IsDir() {
-			log.Println("No Plugins to build")
+			fmt.Println("No Plugins to build")
 			return nil
 		}
 
@@ -65,13 +64,12 @@ var buildPluginsCmd = &cobra.Command{
 				callerBase := filepath.Dir(callerFile)
 				rootPath := filepath.Join(callerBase, "..", "..", "..")
 				soBuildCmd := exec.Command(filepath.Join(rootPath, "scripts", "build-plugins.sh"), cmdArgs...)
-				soBuildCmd.Dir = "./plugins"
 				output, err := soBuildCmd.CombinedOutput()
+				fmt.Println(string(output))
 				if err != nil {
-					fmt.Println(string(output))
 					return err
 				}
-				log.Println(string(output))
+
 			}
 			return nil
 		})

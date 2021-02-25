@@ -6,7 +6,7 @@
 # $3: absolute output path and filename
 # $4: add debug flags
 #
-set -x
+# set -x
 
 flags=$([[ -z $4 ]] && echo "" || echo -gcflags='all=-N -l')
 
